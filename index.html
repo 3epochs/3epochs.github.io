@@ -152,6 +152,230 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-3-TechLead-problems-trie-topk-and-memorized" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/">3 TechLead problems:trie, topk and memorized</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/" class="archive-article-date">
+  	<time datetime="2021-01-22T04:24:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h1><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QGVCnjXmrNg">Top “Hard” Interview Problems from Google, Facebook, FANG (for software engineers) - YouTube</a></p>
+<p>看了这个视频, 视频中解决了三个问题, 刚好这三个问题都比较经典, 所以记录一下.</p>
+<h1 id="1-trie的应用"><a href="#1-trie的应用" class="headerlink" title="1 trie的应用:"></a>1 trie的应用:</h1><ul>
+<li><p>问题:</p>
+<ul>
+<li>“You are given a prefix and a list of words, you need to return all the potential words that would match this prefix”</li>
+<li>eg: prefix <code>&quot;do&quot;</code> , word-list:<code>[&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;]</code>, the potential words would be <code>[&quot;dog&quot;, &quot;door&quot;, &quot;dodge&quot;]</code>;</li>
+</ul>
+</li>
+<li><p>分析:</p>
+<ul>
+<li><p>假设prefix长度为k, word-list长度为n</p>
+</li>
+<li><p>brutal force: </p>
+<ul>
+<li>遍历word-list中每一个单词, 检查每个单词的前k为是否和prefix相同, 是则加入res</li>
+<li>时间复杂度O(nk)</li>
+</ul>
+</li>
+<li><p>代码:</p>
+<ul>
+<li><pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;string&gt; brutal(vector&lt;string&gt; &amp;words, string &amp;prefix) &#123;
+        vector&lt;string&gt; res;
+        int k = prefix.size();
+        for (string word : words) &#123;
+            if (word.size() &lt; k) continue;
+            bool flag = true;
+            for (int i = 0; i &lt; k; ++i) &#123;
+                if (word[i] != prefix[i]) &#123;
+                    flag = false;
+                    break;
+                &#125;
+            &#125;
+            if (flag) res.push_back(word);
+        &#125;
+        return res;
+    &#125;
+&#125;;
+
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>  int main() &#123;
+      vector&lt;string&gt; words&#123;&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;&#125;;
+      string prefix &#123;&quot;do&quot;&#125;;
+      Solution solution;
+      auto res = solution.brutal(words, prefix);
+      for (auto &amp;x : res) &#123;
+          cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+      &#125;
+      return 0;
+  &#125;
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 使用Trie (时间复杂度为O(k) + O(n), **所有单词可能都在这个子树下**)</span><br><span class="line"></span><br><span class="line">  - &#123;% asset_img trie.png trie %&#125;</span><br><span class="line"></span><br><span class="line">  - 代码</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;C++</span><br><span class="line">    #include &lt;vector&gt;</span><br><span class="line">    #include &lt;string&gt;</span><br><span class="line">    #include &lt;iostream&gt;</span><br><span class="line">    using namespace std;</span><br><span class="line">    </span><br><span class="line">    struct Node &#123;  &#x2F;&#x2F; trie 结点定义</span><br><span class="line">        Node *children[26];</span><br><span class="line">        bool isWord;</span><br><span class="line">        Node() &#123;</span><br><span class="line">            for (auto &amp; i : children) &#123;</span><br><span class="line">                i &#x3D; nullptr;</span><br><span class="line">            &#125;</span><br><span class="line">            isWord &#x3D; false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    class Solution &#123;</span><br><span class="line">    public:</span><br><span class="line">        Node *trie;</span><br><span class="line">        Solution() &#123;  &#x2F;&#x2F; 构造一个空结点</span><br><span class="line">            trie &#x3D; new Node;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        void build(vector&lt;string&gt; &amp;words) &#123;</span><br><span class="line">            for (string &amp;word : words) &#123;</span><br><span class="line">                Node *cur &#x3D; trie;</span><br><span class="line">                for (char c : word) &#123;</span><br><span class="line">                    if (!cur-&gt;children[c - &#39;a&#39;]) &#123; &#x2F;&#x2F; 对应孩子没有路径</span><br><span class="line">                        Node *node &#x3D; new Node;</span><br><span class="line">                        node-&gt;isWord &#x3D; false;</span><br><span class="line">                        cur-&gt;children[c - &#39;a&#39;] &#x3D; node;</span><br><span class="line">                    &#125;</span><br><span class="line">                    cur &#x3D; cur-&gt;children[c - &#39;a&#39;];</span><br><span class="line">                &#125;</span><br><span class="line">                cur-&gt;isWord &#x3D; true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        vector&lt;string&gt; ansWithTrie(vector&lt;string&gt; &amp;words, string &amp;prefix) &#123;</span><br><span class="line">            build(words);</span><br><span class="line">            vector&lt;string&gt; res;</span><br><span class="line">            Node *cur &#x3D; trie;</span><br><span class="line">            for (char c : prefix) &#123;  &#x2F;&#x2F; 走到对应子树的根</span><br><span class="line">                if (!cur-&gt;children[c - &#39;a&#39;]) return res;</span><br><span class="line">                cur &#x3D; cur-&gt;children[c - &#39;a&#39;];</span><br><span class="line">            &#125;</span><br><span class="line">            dfs(cur, res,  prefix);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        void dfs(Node *cur, vector&lt;string&gt; &amp;res, string tmp) &#123;</span><br><span class="line">            if (!cur) return;</span><br><span class="line">            if (cur-&gt;isWord) res.push_back(tmp);</span><br><span class="line">            for (int i &#x3D; 0; i &lt; 26; ++i) &#123;</span><br><span class="line">                if (cur-&gt;children[i]) &#123;</span><br><span class="line">                    char c &#x3D; &#39;a&#39; + i;</span><br><span class="line">                    dfs(cur-&gt;children[i], res, tmp + c);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    int main() &#123;</span><br><span class="line">        vector&lt;string&gt; words&#123;&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;&#125;;</span><br><span class="line">        string prefix &#123;&quot;do&quot;&#125;;</span><br><span class="line">        Solution solution;</span><br><span class="line">        auto res &#x3D; solution.ansWithTrie(words, prefix);</span><br><span class="line">        for (auto &amp;x : res) &#123;</span><br><span class="line">            cout &lt;&lt; x &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+- 以上代码针对26个小写字母, 如果全部要支持, 扩展到256ascii码即可.</code></pre>
+<h1 id="2-TopK"><a href="#2-TopK" class="headerlink" title="2 TopK"></a>2 TopK</h1><ul>
+<li><p>问题</p>
+<ul>
+<li>给一个未排序的数组, 返回第k的元素</li>
+</ul>
+</li>
+<li><p>分析:</p>
+<ul>
+<li>方法1, 每次拿最大的, 并且vis标记该结点已经访问过, 拿K次, 时间复杂度O(nk), 空间O(n);</li>
+<li>方法2, sort, 返回下标为size - k的位置的值, 时间复杂度O(nlogn), 空间快排空间, 可认为是O(1);</li>
+<li>方法3, 使用heap, 拿k次最大值. 建堆O(n), extract-max O(logn), 所以总时间复杂度为O(n + klogn);</li>
+<li>最佳方法:基于partition, 递推式近似为<code>T(n) = T(n/2) + n</code>, 时间复杂度显然为O(2n) = O(n);</li>
+</ul>
+</li>
+<li><p>代码:</p>
+</li>
+<li><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class Solution &#123;
+public:
+    int ans1(vector&lt;int&gt; &amp;nums, int k) &#123;
+        int n = nums.size();
+        if (n &lt; k) return -1;
+        vector&lt;bool&gt; vis(n, false);
+        int idx = -1;
+        for (int i = 0; i &lt; k; ++i) &#123;
+            idx = -1;
+            for (int j = 0; j &lt; n; ++j) &#123;
+                if (!vis[j] &amp;&amp; (idx == - 1 || nums[idx] &lt; nums[j])) &#123;
+                    idx = j;
+                &#125;
+            &#125;
+            vis[idx] = true;
+        &#125;
+        return nums[idx];
+    &#125;
+
+    int partition(vector&lt;int&gt; &amp;nums, int lo, int hi) &#123;
+        int pivot = nums[hi];
+        int i = lo;
+        for (int j = lo; j &lt; hi; ++j) &#123;
+            if (nums[j] &lt; pivot) &#123;
+                swap(nums[i], nums[j]);
+                ++i;
+            &#125;
+        &#125;
+        swap(nums[i], nums[hi]);
+        return i;
+    &#125;
+
+    int topK(vector&lt;int&gt; &amp;nums, int k) &#123;
+        int n = nums.size();
+        int lo = 0, hi = n - 1;
+        while (lo &lt;= hi) &#123;
+            int q = partition(nums, lo, hi);
+            if (q == n - k) &#123;
+                return nums[q];
+            &#125;
+            else if (q &gt; n - k) &#123;
+                hi = q - 1;
+            &#125;
+            else lo = q + 1;
+        &#125;
+        return -1;
+    &#125;
+&#125;;
+
+int main () &#123;
+    Solution solution;
+    vector&lt;int&gt; nums&#123;5, 7, 2, 3, 4, 1, 6&#125;;
+    cout &lt;&lt; solution.ans1(nums, 3) &lt;&lt; endl;
+    cout &lt;&lt; solution.topK(nums, 3) &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+</li>
+</ul>
+<h1 id="3-to-be-continued"><a href="#3-to-be-continued" class="headerlink" title="3 to be continued"></a>3 to be continued</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">trie</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">techlead</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Minimum-Spanning-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -201,7 +425,7 @@
 <p>弄清定义:</p>
 <ul>
 <li>关键边: 出现在所有MST中, 所以如果一开始我们就把这条边删掉(全程不用这条边), 那么要么生不成MST, 要么生成的MST总代价变大</li>
-<li>伪关键边: 为了确保这条边一定被选中, 我们应该一开始就union这条边.</li>
+<li>伪关键边: <strong>这条边属于某一个MST</strong>, 但不被所有MST共有, 为了确保这条边一定被选中, 我们应该一开始就union这条边.</li>
 </ul>
 <p>算法步骤:</p>
 <ul>
@@ -232,11 +456,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -444,11 +668,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color5">data structure</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">data structure</a>
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">trie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">techlead</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">

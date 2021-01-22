@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hello World | Hexo</title>
+  <title>3 TechLead problems:trie, topk and memorized | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="motivationTop “Hard” Interview Problems from Google, Facebook, FANG (for software engineers) - YouTube 看了这个视频, 视频中解决了三个问题, 刚好这三个问题都比较经典, 所以记录一下. 1 trie的应用: 问题:  “You are given a prefix and a list of w">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2021/01/21/hello-world/index.html">
+<meta property="og:title" content="3 TechLead problems:trie, topk and memorized">
+<meta property="og:url" content="http://example.com/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="motivationTop “Hard” Interview Problems from Google, Facebook, FANG (for software engineers) - YouTube 看了这个视频, 视频中解决了三个问题, 刚好这三个问题都比较经典, 所以记录一下. 1 trie的应用: 问题:  “You are given a prefix and a list of w">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-21T11:19:36.323Z">
-<meta property="article:modified_time" content="2021-01-21T11:19:36.323Z">
+<meta property="article:published_time" content="2021-01-22T04:24:23.000Z">
+<meta property="article:modified_time" content="2021-01-22T06:38:06.225Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="data structure">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="trie">
+<meta property="article:tag" content="techlead">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -154,36 +158,166 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-3-TechLead-problems-trie-topk-and-memorized" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      3 TechLead problems:trie, topk and memorized
     </h1>
   
 
         
-        <a href="/2021/01/21/hello-world/" class="archive-article-date">
-  	<time datetime="2021-01-21T11:19:36.323Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
+        <a href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/" class="archive-article-date">
+  	<time datetime="2021-01-22T04:24:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h1 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h1><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QGVCnjXmrNg">Top “Hard” Interview Problems from Google, Facebook, FANG (for software engineers) - YouTube</a></p>
+<p>看了这个视频, 视频中解决了三个问题, 刚好这三个问题都比较经典, 所以记录一下.</p>
+<h1 id="1-trie的应用"><a href="#1-trie的应用" class="headerlink" title="1 trie的应用:"></a>1 trie的应用:</h1><ul>
+<li><p>问题:</p>
+<ul>
+<li>“You are given a prefix and a list of words, you need to return all the potential words that would match this prefix”</li>
+<li>eg: prefix <code>&quot;do&quot;</code> , word-list:<code>[&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;]</code>, the potential words would be <code>[&quot;dog&quot;, &quot;door&quot;, &quot;dodge&quot;]</code>;</li>
+</ul>
+</li>
+<li><p>分析:</p>
+<ul>
+<li><p>假设prefix长度为k, word-list长度为n</p>
+</li>
+<li><p>brutal force: </p>
+<ul>
+<li>遍历word-list中每一个单词, 检查每个单词的前k为是否和prefix相同, 是则加入res</li>
+<li>时间复杂度O(nk)</li>
+</ul>
+</li>
+<li><p>代码:</p>
+<ul>
+<li><pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;string&gt; brutal(vector&lt;string&gt; &amp;words, string &amp;prefix) &#123;
+        vector&lt;string&gt; res;
+        int k = prefix.size();
+        for (string word : words) &#123;
+            if (word.size() &lt; k) continue;
+            bool flag = true;
+            for (int i = 0; i &lt; k; ++i) &#123;
+                if (word[i] != prefix[i]) &#123;
+                    flag = false;
+                    break;
+                &#125;
+            &#125;
+            if (flag) res.push_back(word);
+        &#125;
+        return res;
+    &#125;
+&#125;;
 
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>  int main() &#123;
+      vector&lt;string&gt; words&#123;&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;&#125;;
+      string prefix &#123;&quot;do&quot;&#125;;
+      Solution solution;
+      auto res = solution.brutal(words, prefix);
+      for (auto &amp;x : res) &#123;
+          cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+      &#125;
+      return 0;
+  &#125;
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 使用Trie (时间复杂度为O(k) + O(n), **所有单词可能都在这个子树下**)</span><br><span class="line"></span><br><span class="line">  - &#123;% asset_img trie.png trie %&#125;</span><br><span class="line"></span><br><span class="line">  - 代码</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;C++</span><br><span class="line">    #include &lt;vector&gt;</span><br><span class="line">    #include &lt;string&gt;</span><br><span class="line">    #include &lt;iostream&gt;</span><br><span class="line">    using namespace std;</span><br><span class="line">    </span><br><span class="line">    struct Node &#123;  &#x2F;&#x2F; trie 结点定义</span><br><span class="line">        Node *children[26];</span><br><span class="line">        bool isWord;</span><br><span class="line">        Node() &#123;</span><br><span class="line">            for (auto &amp; i : children) &#123;</span><br><span class="line">                i &#x3D; nullptr;</span><br><span class="line">            &#125;</span><br><span class="line">            isWord &#x3D; false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    class Solution &#123;</span><br><span class="line">    public:</span><br><span class="line">        Node *trie;</span><br><span class="line">        Solution() &#123;  &#x2F;&#x2F; 构造一个空结点</span><br><span class="line">            trie &#x3D; new Node;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        void build(vector&lt;string&gt; &amp;words) &#123;</span><br><span class="line">            for (string &amp;word : words) &#123;</span><br><span class="line">                Node *cur &#x3D; trie;</span><br><span class="line">                for (char c : word) &#123;</span><br><span class="line">                    if (!cur-&gt;children[c - &#39;a&#39;]) &#123; &#x2F;&#x2F; 对应孩子没有路径</span><br><span class="line">                        Node *node &#x3D; new Node;</span><br><span class="line">                        node-&gt;isWord &#x3D; false;</span><br><span class="line">                        cur-&gt;children[c - &#39;a&#39;] &#x3D; node;</span><br><span class="line">                    &#125;</span><br><span class="line">                    cur &#x3D; cur-&gt;children[c - &#39;a&#39;];</span><br><span class="line">                &#125;</span><br><span class="line">                cur-&gt;isWord &#x3D; true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        vector&lt;string&gt; ansWithTrie(vector&lt;string&gt; &amp;words, string &amp;prefix) &#123;</span><br><span class="line">            build(words);</span><br><span class="line">            vector&lt;string&gt; res;</span><br><span class="line">            Node *cur &#x3D; trie;</span><br><span class="line">            for (char c : prefix) &#123;  &#x2F;&#x2F; 走到对应子树的根</span><br><span class="line">                if (!cur-&gt;children[c - &#39;a&#39;]) return res;</span><br><span class="line">                cur &#x3D; cur-&gt;children[c - &#39;a&#39;];</span><br><span class="line">            &#125;</span><br><span class="line">            dfs(cur, res,  prefix);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        void dfs(Node *cur, vector&lt;string&gt; &amp;res, string tmp) &#123;</span><br><span class="line">            if (!cur) return;</span><br><span class="line">            if (cur-&gt;isWord) res.push_back(tmp);</span><br><span class="line">            for (int i &#x3D; 0; i &lt; 26; ++i) &#123;</span><br><span class="line">                if (cur-&gt;children[i]) &#123;</span><br><span class="line">                    char c &#x3D; &#39;a&#39; + i;</span><br><span class="line">                    dfs(cur-&gt;children[i], res, tmp + c);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    int main() &#123;</span><br><span class="line">        vector&lt;string&gt; words&#123;&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;&#125;;</span><br><span class="line">        string prefix &#123;&quot;do&quot;&#125;;</span><br><span class="line">        Solution solution;</span><br><span class="line">        auto res &#x3D; solution.ansWithTrie(words, prefix);</span><br><span class="line">        for (auto &amp;x : res) &#123;</span><br><span class="line">            cout &lt;&lt; x &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+- 以上代码针对26个小写字母, 如果全部要支持, 扩展到256ascii码即可.</code></pre>
+<h1 id="2-TopK"><a href="#2-TopK" class="headerlink" title="2 TopK"></a>2 TopK</h1><ul>
+<li><p>问题</p>
+<ul>
+<li>给一个未排序的数组, 返回第k的元素</li>
+</ul>
+</li>
+<li><p>分析:</p>
+<ul>
+<li>方法1, 每次拿最大的, 并且vis标记该结点已经访问过, 拿K次, 时间复杂度O(nk), 空间O(n);</li>
+<li>方法2, sort, 返回下标为size - k的位置的值, 时间复杂度O(nlogn), 空间快排空间, 可认为是O(1);</li>
+<li>方法3, 使用heap, 拿k次最大值. 建堆O(n), extract-max O(logn), 所以总时间复杂度为O(n + klogn);</li>
+<li>最佳方法:基于partition, 递推式近似为<code>T(n) = T(n/2) + n</code>, 时间复杂度显然为O(2n) = O(n);</li>
+</ul>
+</li>
+<li><p>代码:</p>
+</li>
+<li><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class Solution &#123;
+public:
+    int ans1(vector&lt;int&gt; &amp;nums, int k) &#123;
+        int n = nums.size();
+        if (n &lt; k) return -1;
+        vector&lt;bool&gt; vis(n, false);
+        int idx = -1;
+        for (int i = 0; i &lt; k; ++i) &#123;
+            idx = -1;
+            for (int j = 0; j &lt; n; ++j) &#123;
+                if (!vis[j] &amp;&amp; (idx == - 1 || nums[idx] &lt; nums[j])) &#123;
+                    idx = j;
+                &#125;
+            &#125;
+            vis[idx] = true;
+        &#125;
+        return nums[idx];
+    &#125;
+
+    int partition(vector&lt;int&gt; &amp;nums, int lo, int hi) &#123;
+        int pivot = nums[hi];
+        int i = lo;
+        for (int j = lo; j &lt; hi; ++j) &#123;
+            if (nums[j] &lt; pivot) &#123;
+                swap(nums[i], nums[j]);
+                ++i;
+            &#125;
+        &#125;
+        swap(nums[i], nums[hi]);
+        return i;
+    &#125;
+
+    int topK(vector&lt;int&gt; &amp;nums, int k) &#123;
+        int n = nums.size();
+        int lo = 0, hi = n - 1;
+        while (lo &lt;= hi) &#123;
+            int q = partition(nums, lo, hi);
+            if (q == n - k) &#123;
+                return nums[q];
+            &#125;
+            else if (q &gt; n - k) &#123;
+                hi = q - 1;
+            &#125;
+            else lo = q + 1;
+        &#125;
+        return -1;
+    &#125;
+&#125;;
+
+int main () &#123;
+    Solution solution;
+    vector&lt;int&gt; nums&#123;5, 7, 2, 3, 4, 1, 6&#125;;
+    cout &lt;&lt; solution.ans1(nums, 3) &lt;&lt; endl;
+    cout &lt;&lt; solution.topK(nums, 3) &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+</li>
+</ul>
+<h1 id="3-to-be-continued"><a href="#3-to-be-continued" class="headerlink" title="3 to be continued"></a>3 to be continued</h1>
       
 
       
@@ -212,6 +346,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">trie</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">techlead</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -262,7 +419,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/01/21/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -276,15 +433,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/01/21/Minimum-Spanning-Tree/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Minimum Spanning Tree
-        
-      </div>
-    </a>
   
+    <a href="/2021/01/21/Minimum-Spanning-Tree/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Minimum Spanning Tree</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
