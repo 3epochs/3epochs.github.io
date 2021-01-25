@@ -152,6 +152,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-实现shared智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">实现shared智能指针</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="archive-article-date">
+  	<time datetime="2021-01-25T15:25:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h1><p>后天有个C++实习面试, 智能指针感觉挺爱问的, 刚好实现了一下, 做此纪录, 以备日后查看.</p>
+<h1 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h1><img src="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/1.jpg" class title="shared_ptr示意">
+
+<p><code>shared_ptr</code> 会维护一个count, 每次新增加一个指向对象的指针, count + 1, 每次析构掉一个指针, count - 1; 当<code>count == 0</code> 的时候真正释放对象. 这一切都由<code>shared_ptr</code>帮你完成, 而不再需要手动<code>delete</code>;</p>
+<h1 id="构思"><a href="#构思" class="headerlink" title="构思"></a>构思</h1><ul>
+<li>所有指向同一个对象的指针应该共享一个count, 因此count可以设计为一个new int, 而在<code>shared_ptr</code>中有一个<code>int *</code>的指针, 指向这个int;</li>
+<li>同理对象也是共享的, 因此<code>shared_ptr</code>类中应该有一个<code>T *</code>的指针指向实际的<code>data</code>;</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>需要支持以下操作:<ul>
+<li><code>SharedPointer ptr(new T())</code>, 即直接用一个<code>data *</code>指针初始化</li>
+<li><code>SharedPointer ptr</code>, 初始化一个未指向任何对象的指针;</li>
+<li><code>SharedPointer ptr1(ptr)</code>, 用另外一个sharedptr构造;</li>
+<li><code>SharedPointer ptr2; ptr2 = ptr</code>, 即拷贝赋值;</li>
+<li><code>int useCount()</code>, 该对象引用计数;</li>
+<li><code>addReference()</code>, 新增计数;</li>
+<li><code>removeReference()</code>, 删除计数, 当计数为0的时候需要<code>delete</code> <strong>计数</strong> 和 <strong>对象</strong>;</li>
+<li><code>T&amp; operator *()</code>解引用;</li>
+<li><code>T* operator -&gt;()</code>指针操作;</li>
+</ul>
+</li>
+</ul>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by HXiang on 2021/1/25.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ~MyClass()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;~MyClass(&quot;</span> &lt;&lt; _id &lt;&lt; <span class="string">&quot;)\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    MyClass(<span class="keyword">int</span> i) :_id(i)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;MyClass(&quot;</span> &lt;&lt; _id &lt;&lt; <span class="string">&quot;)&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> _id;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedPointer</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SharedPointer() : count(<span class="literal">nullptr</span>), pointer(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// T* 构造</span></span><br><span class="line">    explicit SharedPointer(T *data) : count(nullptr), pointer(data) &#123;</span><br><span class="line">        addReference();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拷贝构造</span></span><br><span class="line">    SharedPointer(SharedPointer&lt;T&gt; <span class="keyword">const</span> &amp;ptr) : count(ptr.count), pointer(ptr.pointer) &#123;</span><br><span class="line">        addReference();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 析构</span></span><br><span class="line">    ~SharedPointer() &#123;</span><br><span class="line">        removeReference();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拷贝赋值</span></span><br><span class="line">    SharedPointer&lt;T&gt;&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> SharedPointer&lt;T&gt; &amp;rhs) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> != &amp;rhs) &#123;</span><br><span class="line">            removeReference();</span><br><span class="line">            count = rhs.count;</span><br><span class="line">            pointer = rhs.pointer;</span><br><span class="line">            addReference();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dereference</span></span><br><span class="line">    T&amp; <span class="keyword">operator</span> *() <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> *pointer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T* <span class="keyword">operator</span> -&gt;() <span class="keyword">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pointer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">useCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (count) &#123;</span><br><span class="line">            <span class="keyword">return</span> *count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addReference</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!count) &#123;</span><br><span class="line">            count = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ++(*count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeReference</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (count) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!--(*count)) &#123;</span><br><span class="line">                <span class="keyword">delete</span> count;</span><br><span class="line">                <span class="keyword">delete</span> pointer;</span><br><span class="line">                count = <span class="literal">nullptr</span>;</span><br><span class="line">                pointer = <span class="literal">nullptr</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> *count;</span><br><span class="line">    T *pointer;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> *p = <span class="keyword">new</span> MyClass(<span class="number">1</span>);</span><br><span class="line">    <span class="function">SharedPointer&lt;MyClass&gt; <span class="title">sp1</span><span class="params">(p)</span></span>;</span><br><span class="line">    SharedPointer&lt;MyClass&gt; sp2 = sp1;</span><br><span class="line">    SharedPointer&lt;MyClass&gt; sp;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;sp count &quot;</span> &lt;&lt; sp.useCount() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;sp1 count &quot;</span> &lt;&lt; sp1.useCount() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    sp = sp2;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;sp1 count &quot;</span> &lt;&lt; sp1.useCount() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    sp-&gt;Print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>基本功还是重要啊, 感觉实现很简单, 主要还是侯捷的面向对象讲的那些注意点;</p>
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><p>主要参考知乎这篇文章:</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63488452">https://zhuanlan.zhihu.com/p/63488452</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-3-TechLead-problems-trie-topk-and-memorized" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -653,6 +758,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编程语言</a>
               </li>
             
             <div class="clearfix"></div>
