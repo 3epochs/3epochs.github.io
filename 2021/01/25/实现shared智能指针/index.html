@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/1.jpg">
 <meta property="article:published_time" content="2021-01-25T15:25:34.000Z">
-<meta property="article:modified_time" content="2021-01-25T15:51:46.598Z">
+<meta property="article:modified_time" content="2021-01-26T09:47:03.207Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="编程语言">
@@ -182,6 +182,8 @@
 <h1 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h1><img src="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/1.jpg" class title="shared_ptr示意">
 
 <p><code>shared_ptr</code> 会维护一个count, 每次新增加一个指向对象的指针, count + 1, 每次析构掉一个指针, count - 1; 当<code>count == 0</code> 的时候真正释放对象. 这一切都由<code>shared_ptr</code>帮你完成, 而不再需要手动<code>delete</code>;</p>
+<a id="more"></a>
+
 <h1 id="构思"><a href="#构思" class="headerlink" title="构思"></a>构思</h1><ul>
 <li>所有指向同一个对象的指针应该共享一个count, 因此count可以设计为一个new int, 而在<code>shared_ptr</code>中有一个<code>int *</code>的指针, 指向这个int;</li>
 <li>同理对象也是共享的, 因此<code>shared_ptr</code>类中应该有一个<code>T *</code>的指针指向实际的<code>data</code>;</li>
