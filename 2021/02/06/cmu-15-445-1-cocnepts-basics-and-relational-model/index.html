@@ -19,8 +19,18 @@
 <meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/csv.png">
 <meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/types.png">
 <meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/foreign.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/1.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/union.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/intersect.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/diff.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/product.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/join.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/kv.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/graph.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/doc.png">
+<meta property="og:image" content="http://example.com/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/column.png">
 <meta property="article:published_time" content="2021-02-06T07:40:15.000Z">
-<meta property="article:modified_time" content="2021-02-06T08:45:43.363Z">
+<meta property="article:modified_time" content="2021-02-06T09:35:05.039Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="databases">
 <meta property="article:tag" content="15445">
@@ -238,7 +248,81 @@
 <li><p>Relational databases are the most common data model because it is the most flexible.</p>
 </li>
 </ul>
+<h1 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h1><img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/1.png" class>
 
+<h2 id="definition-1"><a href="#definition-1" class="headerlink" title="definition"></a>definition</h2><p><strong>Fundamental operations to retrive and manipulate tuples in a relation. (Based on set algebra)</strong></p>
+<p><strong>Operators:</strong></p>
+<ul>
+<li><code>Select</code>: <ul>
+<li>choose a subset of tuples from arelation that satisfies a selection predicate.</li>
+<li>eg:<code>select * from R where id=01;</code></li>
+</ul>
+</li>
+<li><code>Projection</code>:<ul>
+<li>generate a relation with tuples that <strong>contains only the specified attributes</strong>.</li>
+<li>eg: <code>select name, year from R where id=01;</code> , compare difference with example above;</li>
+</ul>
+</li>
+<li>Union: <ul>
+<li>generate a relation that contains all tuples that appear in either only one or both of the input relations.</li>
+<li>eg:<code>select * from R union select * from S;</code></li>
+<li>In order to union two tables there are a couple of requirements:<ol>
+<li>The <strong>number of columns must be the same</strong> for both select statements.</li>
+<li>The columns, in order, must <strong>be of the same data type</strong>.</li>
+</ol>
+</li>
+<li>在两个表中都出现的会重复显示, <strong>it does not remove duplicates</strong></li>
+</ul>
+</li>
+</ul>
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/union.png" class title="union">
+
+<ul>
+<li>Intersection:<ul>
+<li>generate a relation that contains <strong>only the tuples that apper in both</strong> of the input relations;</li>
+<li>eg: <code>select * from R intersect select * from S;</code></li>
+</ul>
+</li>
+</ul>
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/intersect.png" class title="intersect">
+
+<ul>
+<li>Difference:<ul>
+<li>generate a relation that contains <strong>only the tuples that appear in the first and not the second</strong> of the input relations;</li>
+<li>eg: <code>select * from R except select * from S;</code></li>
+</ul>
+</li>
+</ul>
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/diff.png" class title="difference">
+
+<ul>
+<li>Product:<ul>
+<li>generate a relation that contains <strong>all possible combinations of tuples from the input relations</strong>;</li>
+<li>syntax: <code>select * from R cross join S</code>;  <strong>or</strong> <code>select * from R, S;</code></li>
+</ul>
+</li>
+</ul>
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/product.png" class title="product">
+
+<ul>
+<li>Join:<ul>
+<li>generate a relation that contains all tuples that are a combination of two tuples(one from each input relation) with a common value(s) for one or more attributes.</li>
+<li>syntax: <code>select * from R natural join S;</code></li>
+</ul>
+</li>
+</ul>
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/join.png" class title="join">
+
+<p><strong>Each operator takes one or more relations as its inputs and outpus a new relation.</strong> We can chain operators together to create more compelx operations.</p>
+<p><strong>cross join is the same thing as Cartesian product.</strong></p>
+<h2 id="difference-between-inner-join-and-intersect-quora"><a href="#difference-between-inner-join-and-intersect-quora" class="headerlink" title="difference between inner join and intersect(quora):"></a>difference between inner join and intersect(quora):</h2><p><strong>Intersect is</strong> an operator and <strong>Inner join is</strong> a type of <strong>join</strong>. <strong>Intersect</strong> can return matching null values but <strong>inner join</strong> can’t. <strong>Intersect</strong> doesn’t return any duplicate values but <strong>inner join</strong> returns duplicate values if it’s present <strong>in the</strong> tables.</p>
+<h1 id="non-relational-data-models"><a href="#non-relational-data-models" class="headerlink" title="non-relational data models"></a>non-relational data models</h1><img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/kv.png" class title="key-value">
+
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/graph.png" class title="graph">
+
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/doc.png" class title="document">
+
+<img src="/2021/02/06/cmu-15-445-1-cocnepts-basics-and-relational-model/column.png" class title="column">
       
 
       
@@ -490,7 +574,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,15 +590,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编程语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
