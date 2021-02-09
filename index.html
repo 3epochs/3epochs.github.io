@@ -152,6 +152,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-cmu15445-4-buffer-pool" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/09/cmu15445-4-buffer-pool/">cmu15445 4: buffer pool</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/09/cmu15445-4-buffer-pool/" class="archive-article-date">
+  	<time datetime="2021-02-09T03:19:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>lab1也就是写一个buffer pool, 所以说这一节特别重要, 务必要弄懂!!!</p>
+<h1 id="database-storage"><a href="#database-storage" class="headerlink" title="database storage"></a>database storage</h1><p><strong>spatial control: where to write pages to disk, the goal is to keep pages that are used together often as physically close together as possible on the disk</strong>;</p>
+<p><strong>Temporal Control:When to read pages into memory, and when to write them to disk.The goal is minimize the number of stalls from having to read data from disk.</strong></p>
+        
+          <a class="article-more-a" href="/2021/02/09/cmu15445-4-buffer-pool/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">databases</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">buffer pool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/09/cmu15445-4-buffer-pool/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-cmu-15445-3-database-storage-part-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -528,11 +614,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
@@ -906,103 +992,6 @@
 
 
   
-    <article id="post-3-TechLead-problems-trie-topk-and-memorized" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/">3 TechLead problems:trie, topk and memorized</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/" class="archive-article-date">
-  	<time datetime="2021-01-22T04:24:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h1><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QGVCnjXmrNg">Top “Hard” Interview Problems from Google, Facebook, FANG (for software engineers) - YouTube</a></p>
-<p>看了这个视频, 视频中解决了三个问题, 刚好这三个问题都比较经典, 所以记录一下.</p>
-<h1 id="1-trie的应用"><a href="#1-trie的应用" class="headerlink" title="1 trie的应用:"></a>1 trie的应用:</h1><ul>
-<li><p>问题:</p>
-<ul>
-<li>“You are given a prefix and a list of words, you need to return all the potential words that would match this prefix”</li>
-<li>eg: prefix <code>&quot;do&quot;</code> , word-list:<code>[&quot;dog&quot;, &quot;dark&quot;, &quot;cat&quot;, &quot;door&quot;, &quot;dodge&quot;]</code>, the potential words would be <code>[&quot;dog&quot;, &quot;door&quot;, &quot;dodge&quot;]</code>;</li>
-</ul>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">trie</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">techlead</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1100,7 +1089,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">data structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1124,11 +1121,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+                <a href="javascript:void(0)" class="js-tag color4">cmu15445</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1144,15 +1141,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cmu15445</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">-sql -database -cmu15445</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">buffer pool</a>
               </li>
              
               <li class="article-tag-list-item">
