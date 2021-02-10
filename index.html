@@ -152,6 +152,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-cmu-15445-proj1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/09/cmu-15445-proj1/">cmu 15445: proj1</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/09/cmu-15445-proj1/" class="archive-article-date">
+  	<time datetime="2021-02-09T09:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Specification"><a href="#Specification" class="headerlink" title="Specification"></a>Specification</h1><p>正式进入proj1, 需要实现使用<code>lru</code>替换策略的并发安全的<code>bufferpool manager</code>;</p>
+<p>The first programming project is to implement a <strong>buffer pool</strong> in your storage manager.</p>
+<p><strong>Your implementation will need to be thread-safe</strong>.</p>
+        
+          <a class="article-more-a" href="/2021/02/09/cmu-15445-proj1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">-databases -buffer pool -coding -cmu15445</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/09/cmu-15445-proj1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-cmu15445-4-buffer-pool" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -909,89 +987,6 @@
 
 
   
-    <article id="post-实现shared智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">实现shared智能指针</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="archive-article-date">
-  	<time datetime="2021-01-25T15:25:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h1><p>后天有个C++实习面试, 智能指针感觉挺爱问的, 刚好实现了一下, 做此纪录, 以备日后查看.</p>
-<h1 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h1><img src="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/1.jpg" class title="shared_ptr示意">
-
-<p><code>shared_ptr</code> 会维护一个count, 每次新增加一个指向对象的指针, count + 1, 每次析构掉一个指针, count - 1; 当<code>count == 0</code> 的时候真正释放对象. 这一切都由<code>shared_ptr</code>帮你完成, 而不再需要手动<code>delete</code>;</p>
-        
-          <a class="article-more-a" href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1089,15 +1084,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">data structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1110,6 +1097,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">techlead</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,6 +1161,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编程语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">-databases -buffer pool -coding -cmu15445</a>
               </li>
             
             <div class="clearfix"></div>

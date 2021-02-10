@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: data structure | Hexo</title>
+  <title>cmu 15445: proj1 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/data-structure/index.html">
+  <meta name="description" content="Specification正式进入proj1, 需要实现使用lru替换策略的并发安全的bufferpool manager; The first programming project is to implement a buffer pool in your storage manager. Your implementation will need to be thread-safe.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmu 15445: proj1">
+<meta property="og:url" content="http://example.com/2021/02/09/cmu-15445-proj1/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Specification正式进入proj1, 需要实现使用lru替换策略的并发安全的bufferpool manager; The first programming project is to implement a buffer pool in your storage manager. Your implementation will need to be thread-safe.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/02/09/cmu-15445-proj1/config.png">
+<meta property="og:image" content="http://example.com/2021/02/09/cmu-15445-proj1/page.png">
+<meta property="og:image" content="http://example.com/2021/02/09/cmu-15445-proj1/res.png">
+<meta property="article:published_time" content="2021-02-09T09:54:06.000Z">
+<meta property="article:modified_time" content="2021-02-10T14:33:06.125Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="-databases -buffer pool -coding -cmu15445">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/02/09/cmu-15445-proj1/config.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,164 +159,286 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-cmu-15445-proj1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cmu 15445: proj1
+    </h1>
+  
+
+        
+        <a href="/2021/02/09/cmu-15445-proj1/" class="archive-article-date">
+  	<time datetime="2021-02-09T09:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Specification"><a href="#Specification" class="headerlink" title="Specification"></a>Specification</h1><p>正式进入proj1, 需要实现使用<code>lru</code>替换策略的并发安全的<code>bufferpool manager</code>;</p>
+<p>The first programming project is to implement a <strong>buffer pool</strong> in your storage manager.</p>
+<p><strong>Your implementation will need to be thread-safe</strong>.</p>
+<a id="more"></a>
+
+<h1 id="task1-LRU-replacement-policy"><a href="#task1-LRU-replacement-policy" class="headerlink" title="task1 LRU replacement policy"></a>task1 LRU replacement policy</h1><ul>
+<li><code>Victim(T*)</code> : Remove the object that was accessed the least recently compared to all the elements being tracked by the <code>Replacer</code>, store its contents in the output parameter and return <code>True</code>. If the <code>Replacer</code> is empty return <code>False</code>.</li>
+<li><code>Pin(T)</code> : This method should be called after a page is pinned to a frame in the <code>BufferPoolManager</code>. It should remove the frame containing the pinned page from the <code>LRUReplacer</code>.</li>
+<li><code>Unpin(T)</code> : This method should be called when the <code>pin_count</code> of a page becomes 0. This method should add the frame containing the unpinned page to the <code>LRUReplacer</code>.</li>
+<li><code>Size()</code> : This method returns the number of frames that are currently in the <code>LRUReplacer</code>.</li>
+</ul>
+<h2 id="阅读相关信息"><a href="#阅读相关信息" class="headerlink" title="阅读相关信息:"></a>阅读相关信息:</h2><p>首先**<code>LRUReplacer</code> extends the abstract <code>Replacer</code> class**, </p>
+<h3 id="因此先阅读Replacer-h这个类"><a href="#因此先阅读Replacer-h这个类" class="headerlink" title="因此先阅读Replacer.h这个类:"></a>因此先阅读<code>Replacer.h</code>这个类:</h3><ul>
+<li><p>这是一个抽象类, 提供接口</p>
+</li>
+<li><p><code>virtual bool Victim(frame_id_t *frame_id) = 0;</code> </p>
+<ul>
+<li>定义了buffer 满的时候该换出哪一页, 结果通过传入的参数<code>frame_id</code>指针返回, 其中类型<code>frame_id_t</code>是<code>int32_t</code>;</li>
+<li>如果没有<code>victim</code>(比如所有page都碰巧被<code>pin</code>住了)就给<code>frame_id</code>赋为nullptr, 并且返回false;</li>
+<li>如果找到了<code>victim</code>, 就让这个<code>int32_t</code>指针<strong>指向frame的id, 不是page的id</strong>!!!并且返回true;</li>
+</ul>
+</li>
+<li><p><code>virtual void Pin(frame_id_t frame_id) = 0;</code></p>
+<ul>
+<li>当一个<code>frame</code>上的<code>page</code>(frame中的内容就是disk上的page内容的copy)正在被访问的时候, 我们应该把这个<code>frame</code> pin住, 也就是说我正在访问, 你别把我这页换出了, 不然就出错了;</li>
+</ul>
+</li>
+<li><p><code>virtual void Unpin(frame_id_t frame_id) = 0;</code></p>
+<ul>
+<li>当这个<code>frame</code>没有在被使用了, 那么如果你<code>buffer pool</code>满了就可以把我这个frame当作换出的一个candidate;</li>
+</ul>
+</li>
+<li><p><code>virtual size_t Size() = 0;</code></p>
+<ul>
+<li>返回<code>replacer</code>中可以被victim的candiate的数量, 所以一开始replacer的size应该是0, 随着使用并且出现unpin, 这时候这个<code>frame</code>的<code>id</code>就会被加入<code>replacer</code>, 作为可以被<code>victim</code>的<code>candidate</code>;</li>
+</ul>
+</li>
+</ul>
+<p>继续阅读<code>LruReplacer</code>发现他引入了<code>/common/config.h</code>头文件</p>
+<h3 id="阅读config-h"><a href="#阅读config-h" class="headerlink" title="阅读config.h"></a>阅读config.h</h3><img src="/2021/02/09/cmu-15445-proj1/config.png" class>
+
+<p>可见主要定义了一些类型:</p>
+<ul>
+<li><code>Invalid</code>的id都是<code>-1</code>;</li>
+<li>一页的大小是<code>4096B</code>也就是<code>4KB</code>和<code>sqlite</code>一样;</li>
+<li><code>BUFFER_POOL_SIZE</code>为10, 应该是buffer pool有<code>10个frame的空间</code>;</li>
+<li>log buffer没弄懂, 应该和这一个proj无关</li>
+<li>bucket_size是extendible hashtable的桶的数目</li>
+<li>然后定义了<code>frame, page, txn, log seq number</code>的类型都是<code>int32_t</code>;</li>
+<li><code>slot_offset_t</code>是指的tuple的起始位置;</li>
+<li>然后最顶上三个是一些功能性的定义, 包括<code>环检测周期</code>, <code>是否开启log</code>, <code>log刷盘的周期</code>;</li>
+</ul>
+<h2 id="阅读完毕-开始实现"><a href="#阅读完毕-开始实现" class="headerlink" title="阅读完毕, 开始实现"></a>阅读完毕, 开始实现</h2><ul>
+<li>头文件定义一些member variables:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">size_t</span> lruCapacity;  <span class="comment">// maxSize lruReplacer need to store</span></span><br><span class="line"><span class="built_in">std</span>::mutex latch;   <span class="comment">// thread_safe </span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="keyword">frame_id_t</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">frame_id_t</span>&gt;::iterator&gt; id2ListIter;  <span class="comment">// mapping id to list iterator </span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">frame_id_t</span>&gt; dblList;  <span class="comment">// double linked-list simulate timestamp</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>具体实现:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">LRUReplacer::LRUReplacer(<span class="keyword">size_t</span> num_pages) : lruCapacity(num_pages) &#123;&#125;</span><br><span class="line"></span><br><span class="line">LRUReplacer::~LRUReplacer() = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">LRUReplacer::Victim</span><span class="params">(<span class="keyword">frame_id_t</span> *frame_id)</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (dblList.empty()) &#123;</span><br><span class="line">        frame_id = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// erase head, assume head store oldest timestamp</span></span><br><span class="line">    *frame_id = dblList.front();</span><br><span class="line">    id2ListIter.erase(dblList.front());  <span class="comment">// delete entry from map</span></span><br><span class="line">    dblList.erase(dblList.begin());      <span class="comment">// delete node from list</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LRUReplacer::Pin</span><span class="params">(<span class="keyword">frame_id_t</span> frame_id)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// when a page is pinned, remove it from lruReplacer</span></span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> iter = id2ListIter.find(frame_id);</span><br><span class="line">    <span class="keyword">if</span> (iter != id2ListIter.end()) &#123; <span class="comment">// this frame do exsit in lrureplacer, remove it</span></span><br><span class="line">        id2ListIter.erase(frame_id);</span><br><span class="line">        dblList.erase((*iter).second);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LRUReplacer::Unpin</span><span class="params">(<span class="keyword">frame_id_t</span> frame_id)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// when a page is unpinned, add it to lrureplacer</span></span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch)</span></span>;</span><br><span class="line">    <span class="comment">// we should add this frame to the tail of list since we victim the head</span></span><br><span class="line">    <span class="comment">// besides, add a new mapping relation to map</span></span><br><span class="line">    id2ListIter[frame_id] = dblList.insert(dblList.end(), frame_id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">LRUReplacer::Size</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> dblList.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>目前这个实现<code>num_pages</code>完全没作用, 不知道是不是出错了, 测试也无法运行测试. 先写第二个任务看看;</p>
+<h1 id="task2-BUFFER-POOL-MANAGER"><a href="#task2-BUFFER-POOL-MANAGER" class="headerlink" title="task2 BUFFER POOL MANAGER"></a>task2 BUFFER POOL MANAGER</h1><p>The <code>BufferPoolManager</code> is responsible for fetching database pages from the <code>DiskManager</code> and storing them in memory. The <code>BufferPoolManager</code> can also write dirty pages out to disk when it is either explicitly instructed to do so or when it needs to evict a page to make space for a new page.</p>
+<p>与磁盘打交道的代码已经帮我们写好了, 不需要管;</p>
+<p>each <code>Page</code> object contains a block of memory that the <code>DiskManager</code> will use as a location to copy the contents of a <strong>physical page</strong> that it reads from disk. The <code>BufferPoolManager</code> will reuse the same <code>Page</code> object to store data as it moves back and forth to disk. This means <strong>that the same <code>Page</code> object may contain a different physical page throughout the life of the system</strong>. <strong>再次强调: 内存中的page 和 磁盘中的page不同</strong></p>
+<p>The <code>Page</code> object’s identifer (<code>page_id</code>) keeps track of <strong>what physical page it contains</strong>, 当一个page未没有包含磁盘page的时候, page_id应该设为<code>invalid_page_id</code>即-1;</p>
+<p>每个内存中的page还维护了一个<code>pin_count</code>来记录有多少个线程正在使用这个page, 即pin住了; <code>bufferpool manager</code>显然不应该free掉一个<code>pin_count &gt; 0</code>的page; 此外还维护了一个脏位, 当一个page被victim了, 如果dirty_flag, 那必须要把这一页的内容写入磁盘;</p>
+<p>会用到task1实现的<code>lru_replacer</code>来决定evict哪个page;</p>
+<p>For FetchPageImpl,you should return NULL if no page is available in the free list and all other pages are currently pinned. </p>
+<p>FlushPageImpl should flush a page <strong>regardless of its pin status</strong>.</p>
+<h2 id="阅读相关代码"><a href="#阅读相关代码" class="headerlink" title="阅读相关代码"></a>阅读相关代码</h2><p>导入了<code>page.h</code></p>
+<h3 id="阅读-storage-page-page-h"><a href="#阅读-storage-page-page-h" class="headerlink" title="阅读/storage/page/page.h:"></a>阅读<code>/storage/page/page.h</code>:</h3><p><code>friend class BufferPoolManager;</code></p>
+<img src="/2021/02/09/cmu-15445-proj1/page.png" class>
+
+<p>和porj1相关的大概就是这部分, 主要需要注意的是:</p>
+<ul>
+<li><code>page_id</code>: unique identifier, 当page中没有实际包含data的时候(即不是某个physical page的copy) 设为<code>INVALID_PAGE_ID</code></li>
+<li><code>pin_count</code>表示有多个线程正在使用这一页, 当计数将为0的时候就可以加入<code>lru_replacer</code>中了</li>
+<li><code>is_dirty</code>: 表示这一页是否被修改过, 初步设想是在lru决定换出这一页的时候, 查询这个flag, 如果true, 那么应该写入磁盘;</li>
+<li><code>data_</code>: 一页大小为4096字节即4KB;</li>
+</ul>
+<p>导入了<code>disk_manager.h</code></p>
+<h3 id="阅读storage-disk-disk-manager-h"><a href="#阅读storage-disk-disk-manager-h" class="headerlink" title="阅读storage/disk/disk_manager.h:"></a>阅读<code>storage/disk/disk_manager.h:</code></h3><ul>
+<li>DiskManager takes care of the allocation and deallocation of pages within a database. It performs the reading and writing of pages to and from disk, providing a logical file layer within the context of a database management system.</li>
+<li>使用数据库文件的文件名来构造一个disk_manager: <code>explicit DiskManager(const std::string &amp;db_file);</code></li>
+<li>与proj1相关的函数签名:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Write a page to the database file.</span></span><br><span class="line"><span class="comment"> * @param page_id id of the page</span></span><br><span class="line"><span class="comment"> * @param page_data raw page data</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WritePage</span><span class="params">(<span class="keyword">page_id_t</span> page_id, <span class="keyword">const</span> <span class="keyword">char</span> *page_data)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Read a page from the database file.</span></span><br><span class="line"><span class="comment"> * @param page_id id of the page</span></span><br><span class="line"><span class="comment"> * @param[out] page_data output buffer</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadPage</span><span class="params">(<span class="keyword">page_id_t</span> page_id, <span class="keyword">char</span> *page_data)</span></span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Allocate a page on disk.</span></span><br><span class="line"><span class="comment"> * @return the id of the allocated page</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">page_id_t</span> <span class="title">AllocatePage</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Deallocate a page on disk.</span></span><br><span class="line"><span class="comment"> * @param page_id id of the page to deallocate</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeallocatePage</span><span class="params">(<span class="keyword">page_id_t</span> page_id)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="需要实现的函数"><a href="#需要实现的函数" class="headerlink" title="需要实现的函数:"></a>需要实现的函数:</h2><ul>
+<li><code>FetchPageImpl(page_id)</code>: 从<code>buffer pool</code>取出<code>page_id</code>对应的页</li>
+<li><code>NewPageImpl(page_id)</code>: 创建一个新的page</li>
+<li><code>UnpinPageImpl(page_id, is_dirty)</code>: unpin一个page, 注意传入了脏flag</li>
+<li><code>FlushPageImpl(page_id)</code>: 将page_id对应的页写入磁盘</li>
+<li><code>DeletePageImpl(page_id):</code> 将page_id这页从buffer pool删除</li>
+<li><code>FlushAllPagesImpl():</code> 将buffer pool中所有页写入磁盘</li>
+</ul>
+<p><strong>这个task需要先厘清关系, 否则会错误频出, 以下是我写的过程中的发现:</strong></p>
+<ul>
+<li><code>page table</code>是由<code>unordered_map</code>实现的, 负责<code>mapping</code> <code>page_id_t</code>到<code>frame_id_t</code>, 这里需要注意的一点是<code>page_id</code>是由<code>disk_manager-&gt;AllocatePage()</code>生成的, 官方提供的实现是简单的把一个<code>atomic</code>的id从0一直往上加, 所以每个<code>page_id</code>都唯一得代表了一个物理磁盘上的<code>page</code>, 内存中的<code>page</code>只是把磁盘上的<code>page</code>读入内存中的<code>frame</code>中的copy!!! </li>
+<li>当需根据<code>page_id</code>修改一个在内存中的<code>page</code>, 我们需要通过<code>page table</code>把<code>page_id</code> map到<code>frame_id</code>, 因为在buffer pool manager中分配连续的Page *pages_ = new Page[max_pool_size]的空间, 所以我们需要的页的指针的就是<strong>pages + page_table[page_id]</strong>;</li>
+<li>上一个<code>lru_replacer</code>提供的pin 和 unpin接口其实很垃圾, 不符合他的名字,  应该是向lru_replacer中remove和insert的功能;</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;buffer/buffer_pool_manager.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;common/logger.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> bustub &#123;</span><br><span class="line"></span><br><span class="line">BufferPoolManager::BufferPoolManager(<span class="keyword">size_t</span> pool_size, DiskManager *disk_manager, LogManager *log_manager)</span><br><span class="line">    : pool_size_(pool_size), disk_manager_(disk_manager), log_manager_(log_manager) &#123;</span><br><span class="line">  <span class="comment">// We allocate a consecutive memory space for the buffer pool.</span></span><br><span class="line">  pages_ = <span class="keyword">new</span> Page[pool_size_];</span><br><span class="line">  replacer_ = <span class="keyword">new</span> LRUReplacer(pool_size);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Initially, every page is in the free list.</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; pool_size_; ++i) &#123;</span><br><span class="line">    free_list_.emplace_back(<span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(i));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// page_table_.size: 0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BufferPoolManager::~BufferPoolManager() &#123;</span><br><span class="line">  <span class="keyword">delete</span>[] pages_;</span><br><span class="line">  <span class="keyword">delete</span> replacer_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Page *<span class="title">BufferPoolManager::FetchPageImpl</span><span class="params">(<span class="keyword">page_id_t</span> page_id)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 1.     Search the page table for the requested page (P).</span></span><br><span class="line">  <span class="comment">// 1.1    If P exists, pin it and return it immediately.</span></span><br><span class="line">  <span class="comment">// 1.2    If P does not exist, find a replacement page (R) from either the free list or the replacer.</span></span><br><span class="line">  <span class="comment">//        Note that pages are always found from the free list first.</span></span><br><span class="line">  <span class="comment">// 2.     If R is dirty, write it back to the disk.</span></span><br><span class="line">  <span class="comment">// 3.     Delete R from the page table and insert P.</span></span><br><span class="line">  <span class="comment">// 4.     Update P&#x27;s metadata, read in the page content from disk, and then return a pointer to P.</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  <span class="comment">// LOG_INFO(&quot;successfully acquired the latch&quot;);</span></span><br><span class="line">  Page *res = <span class="literal">nullptr</span>;</span><br><span class="line">  <span class="comment">// 1 </span></span><br><span class="line">  <span class="keyword">if</span> (page_table_.count(page_id)) &#123;  <span class="comment">// 1.1</span></span><br><span class="line">    res = pages_ + page_table_[page_id];</span><br><span class="line">    ++(res-&gt;pin_count_);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 1.2 </span></span><br><span class="line">  <span class="keyword">if</span> (free_list_.size() || replacer_-&gt;Size()) &#123;</span><br><span class="line">    <span class="keyword">frame_id_t</span> frame_id = <span class="number">-1</span>;</span><br><span class="line">    res = GetVictim(&amp;frame_id);</span><br><span class="line">    <span class="keyword">if</span> (!res) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">if</span> (res-&gt;is_dirty_) &#123;</span><br><span class="line">      disk_manager_-&gt;WritePage(res-&gt;page_id_, res-&gt;GetData());</span><br><span class="line">      res-&gt;is_dirty_ = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    page_table_.erase(res-&gt;page_id_);</span><br><span class="line">    page_table_[page_id] = frame_id;</span><br><span class="line">    <span class="comment">// 4</span></span><br><span class="line">    res-&gt;pin_count_ = <span class="number">1</span>;</span><br><span class="line">    res-&gt;page_id_ = page_id;</span><br><span class="line">    res-&gt;ResetMemory();</span><br><span class="line">    disk_manager_-&gt;ReadPage(page_id, res-&gt;GetData());</span><br><span class="line">    <span class="keyword">return</span> res; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// // 1.2 since pages are always found from free list, </span></span><br><span class="line">  <span class="comment">// //     if free list empty, deal with replacer first to avoid redundent </span></span><br><span class="line">  <span class="comment">// if (free_list_.empty()) &#123;  // victim a page</span></span><br><span class="line">  <span class="comment">//   auto victim_page_id = INVALID_PAGE_ID;</span></span><br><span class="line">  <span class="comment">//   if (replacer_-&gt;Victim(&amp;victim_page_id)) &#123;</span></span><br><span class="line">  <span class="comment">//     free_list_.insert(free_list_.end(), page_table_[victim_page_id]);</span></span><br><span class="line">  <span class="comment">//   &#125;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="comment">// if (!free_list_.empty()) &#123;</span></span><br><span class="line">  <span class="comment">//   // frame is fixed at the moment we get it from list</span></span><br><span class="line">  <span class="comment">//   res = pages_ + free_list_.back();</span></span><br><span class="line">  <span class="comment">//   free_list_.pop_back();</span></span><br><span class="line">  <span class="comment">//   // 2</span></span><br><span class="line">  <span class="comment">//   if (res-&gt;is_dirty_) &#123;  // write it back to disk</span></span><br><span class="line">  <span class="comment">//     FlushPageImpl(res-&gt;page_id_);</span></span><br><span class="line">  <span class="comment">//   &#125;</span></span><br><span class="line">  <span class="comment">//   // 3 deal with page table</span></span><br><span class="line">  <span class="comment">//   res-&gt;ResetMemory();</span></span><br><span class="line">  <span class="comment">//   auto frame_id = page_table_[res-&gt;page_id_];</span></span><br><span class="line">  <span class="comment">//   page_table_.erase(res-&gt;page_id_);</span></span><br><span class="line">  <span class="comment">//   page_table_[page_id] = frame_id;</span></span><br><span class="line">  <span class="comment">//   // 4</span></span><br><span class="line">  <span class="comment">//   res-&gt;page_id_ = page_id;</span></span><br><span class="line">  <span class="comment">//   res-&gt;is_dirty_ = false;</span></span><br><span class="line">  <span class="comment">//   res-&gt;pin_count_ = 1;</span></span><br><span class="line">  <span class="comment">//   disk_manager_-&gt;ReadPage(page_id, res-&gt;GetData());</span></span><br><span class="line">  <span class="comment">//   return res;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">Page *<span class="title">BufferPoolManager::GetVictim</span><span class="params">(<span class="keyword">frame_id_t</span> *victimFrameId)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// helper function: Get a victim page&#x27;s ptr;</span></span><br><span class="line">  <span class="comment">// this function should be called only when acquiring the latch</span></span><br><span class="line">  <span class="comment">// in this fucntion, I will not try to acquire the latch</span></span><br><span class="line">  <span class="comment">// 1  free_list is not empty, remove free_list&#x27;s tail </span></span><br><span class="line">  <span class="comment">//    and return a ptr to the page with corresponding page_frame_id</span></span><br><span class="line">  <span class="comment">// 2  if free_list is empty, get victim page&#x27;s page_frame_id from lru_replacer</span></span><br><span class="line">  <span class="keyword">if</span> (!free_list_.empty()) &#123;</span><br><span class="line">    *victimFrameId = free_list_.back();</span><br><span class="line">    free_list_.pop_back();</span><br><span class="line">    <span class="keyword">return</span> pages_ + *victimFrameId;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (replacer_-&gt;Victim(victimFrameId)) &#123;</span><br><span class="line">      <span class="keyword">return</span> pages_ + *victimFrameId;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BufferPoolManager::UnpinPageImpl</span><span class="params">(<span class="keyword">page_id_t</span> page_id, <span class="keyword">bool</span> is_dirty)</span> </span>&#123; </span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  Page *page = pages_ + page_table_[page_id];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// LOG_INFO(&quot;page_id the same ? %s&quot;, page_id == page-&gt;page_id_ ? &quot;true&quot;:&quot;false&quot;);</span></span><br><span class="line">  <span class="comment">// LOG_INFO(&quot;page: %d&#x27;s pin_count: %d&quot;, page-&gt;page_id_, page-&gt;pin_count_);</span></span><br><span class="line">  <span class="keyword">if</span> (page_id == INVALID_PAGE_ID || page-&gt;pin_count_ &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="comment">// if (is_dirty) &#123;</span></span><br><span class="line">  <span class="comment">//   disk_manager_-&gt;WritePage(page_id, page-&gt;GetData());</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="keyword">if</span> (is_dirty) &#123;</span><br><span class="line">    page-&gt;is_dirty_ = is_dirty;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (--(page-&gt;pin_count_) == <span class="number">0</span>) &#123;</span><br><span class="line">    replacer_-&gt;Unpin(page_table_[page_id]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BufferPoolManager::FlushPageImpl</span><span class="params">(<span class="keyword">page_id_t</span> page_id)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Make sure you call DiskManager::WritePage!</span></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  <span class="keyword">if</span> (page_id == INVALID_PAGE_ID || !page_table_.count(page_id)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  Page *page = pages_ + page_table_[page_id];</span><br><span class="line">  <span class="keyword">if</span> (page-&gt;is_dirty_) &#123;</span><br><span class="line">    disk_manager_-&gt;WritePage(page_id, page-&gt;GetData());</span><br><span class="line">    page-&gt;is_dirty_ = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Page *<span class="title">BufferPoolManager::NewPageImpl</span><span class="params">(<span class="keyword">page_id_t</span> *page_id)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 0.   Make sure you call DiskManager::AllocatePage!</span></span><br><span class="line">  <span class="comment">// 1.   If all the pages in the buffer pool are pinned, return nullptr.</span></span><br><span class="line">  <span class="comment">// 2.   Pick a victim page P from either the free list or the replacer. Always pick from the free list first.</span></span><br><span class="line">  <span class="comment">// 3.   Update P&#x27;s metadata, zero out memory and add P to the page table.</span></span><br><span class="line">  <span class="comment">// 4.   Set the page ID output parameter. Return a pointer to P.</span></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  *page_id = disk_manager_-&gt;AllocatePage();</span><br><span class="line">  <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">if</span> (free_list_.empty() &amp;&amp; replacer_-&gt;Size() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 2 </span></span><br><span class="line">  <span class="comment">// LOG_INFO(&quot;enter NewPage, before call FetchPage&quot;);</span></span><br><span class="line">  <span class="keyword">frame_id_t</span> frame_id = <span class="number">-1</span>;</span><br><span class="line">  Page *page = GetVictim(&amp;frame_id);</span><br><span class="line">  <span class="keyword">if</span> (page-&gt;is_dirty_) &#123;</span><br><span class="line">    disk_manager_-&gt;WritePage(page-&gt;page_id_, page-&gt;GetData());</span><br><span class="line">    page-&gt;is_dirty_ = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  page_table_.erase(page-&gt;page_id_);</span><br><span class="line">  <span class="comment">// 3</span></span><br><span class="line">  page-&gt;page_id_ = *page_id;</span><br><span class="line">  page-&gt;pin_count_ = <span class="number">1</span>;</span><br><span class="line">  page_table_[*page_id] = frame_id;</span><br><span class="line">  page-&gt;ResetMemory();</span><br><span class="line">  <span class="keyword">return</span> page;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BufferPoolManager::DeletePageImpl</span><span class="params">(<span class="keyword">page_id_t</span> page_id)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 0.   Make sure you call DiskManager::DeallocatePage!</span></span><br><span class="line">  <span class="comment">// 1.   Search the page table for the requested page (P).</span></span><br><span class="line">  <span class="comment">// 1.   If P does not exist, return true.</span></span><br><span class="line">  <span class="comment">// 2.   If P exists, but has a non-zero pin-count, return false. Someone is using the page.</span></span><br><span class="line">  <span class="comment">// 3.   Otherwise, P can be deleted. Remove P from the page table, reset its metadata and return it to the free list.</span></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock</span><span class="params">(latch_)</span></span>;</span><br><span class="line">  <span class="comment">// 0</span></span><br><span class="line">  disk_manager_-&gt;DeallocatePage(page_id);</span><br><span class="line">  <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">if</span> (page_table_.count(page_id)) &#123; </span><br><span class="line">    Page *page = pages_ + page_table_[page_id];</span><br><span class="line">    <span class="keyword">if</span> (page-&gt;pin_count_) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    free_list_.push_back(page_table_[page_id]);</span><br><span class="line">    page_table_.erase(page_id);</span><br><span class="line">    replacer_-&gt;Pin(page_table_[page_id]);</span><br><span class="line">    page-&gt;is_dirty_ = <span class="literal">false</span>;</span><br><span class="line">    page-&gt;pin_count_ = <span class="number">0</span>;</span><br><span class="line">    page-&gt;ResetMemory();</span><br><span class="line">    page-&gt;page_id_ = INVALID_PAGE_ID;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BufferPoolManager::FlushAllPagesImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// You can do it!</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; pool_size_; ++i) &#123;</span><br><span class="line">    <span class="keyword">auto</span> *page = pages_ + i;</span><br><span class="line">    <span class="keyword">if</span> (page-&gt;is_dirty_) &#123;</span><br><span class="line">      FlushPageImpl(page-&gt;page_id_);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;  <span class="comment">// namespace bustub</span></span><br></pre></td></tr></table></figure>
+<p><strong>在实现过程中, 遇到的第一个大问题就是死锁:</strong></p>
+<ul>
+<li>本来这些需要实现的接口是可以互相调用的, 但是这就存在一个问题:</li>
+<li>这些接口函数都需要获取<code>latch</code>来实现线程安全;</li>
+<li>一个函数比如newPage获取了latch后调用flushPage;</li>
+<li>flushPage中第一行代码也是获取latch, 显然无法获得, 就会死锁</li>
+</ul>
+<p>解决办法:</p>
+<ul>
+<li>一开始网上乱查了个<code>adopt_lock</code>, 结果发现这个只能让程序跑起来, 错误百出;</li>
+<li>可重用锁不考虑, 被陈硕疯狂diss;</li>
+<li>新增了一个辅助函数, <code>GetVictim()</code>, 意思就是我需要一个page的空间的时候, 你必须要给我搞这样一块空间来, 不管是从free_list还是lru_replacer;</li>
+<li>当需要写文件到磁盘的时候不调用flushPage, 直接disk_manager操作;</li>
+<li><strong>辅助函数中不用获取latch</strong>: 因为调用辅助函数的函数caller一定已经在第一行代码拿到latch了, 而整个class只有一个latch, 所以不会有别的函数能够调用这个辅助函数, 所以线程安全;</li>
+</ul>
+<p>以上代码本地测试通过, 官方网站测试还没学会怎么用, build失败.</p>
+<img src="/2021/02/09/cmu-15445-proj1/res.png" class>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/31/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E4%B8%AD%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-01-31T14:39:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/31/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E4%B8%AD%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98/">编程之美中有趣的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">-databases -buffer pool -coding -cmu15445</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/09/cmu-15445-proj1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/" class="archive-article-date">
-  	<time datetime="2021-01-22T04:24:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/02/09/cmu15445-4-buffer-pool/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cmu15445 4: buffer pool</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/">3 TechLead problems:trie, topk and memorized</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">trie</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">techlead</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/21/Minimum-Spanning-Tree/" class="archive-article-date">
-  	<time datetime="2021-01-21T11:33:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/21/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -330,9 +461,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
