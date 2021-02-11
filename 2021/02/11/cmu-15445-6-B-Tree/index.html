@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>cmu 15445 6:B+Tree | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/page/2/index.html">
+  <meta name="description" content="intro这两节的ppt是关于B+树索引的, 会直接和proj2相关, 所以一定要学好. 索引是表的属性的一些排序了的子集(比如key)的replica(复制), 有了这个索引就能够快速找到tuple的位置. DBMS保证表的内容和index的内容都是逻辑上同步的. It is the DBMS’s job to figure out the best index(es) to use to ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmu 15445 6:B+Tree">
+<meta property="og:url" content="http://example.com/2021/02/11/cmu-15445-6-B-Tree/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="intro这两节的ppt是关于B+树索引的, 会直接和proj2相关, 所以一定要学好. 索引是表的属性的一些排序了的子集(比如key)的replica(复制), 有了这个索引就能够快速找到tuple的位置. DBMS保证表的内容和index的内容都是逻辑上同步的. It is the DBMS’s job to figure out the best index(es) to use to ex">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/02/11/cmu-15445-6-B-Tree/example.png">
+<meta property="og:image" content="http://example.com/2021/02/11/cmu-15445-6-B-Tree/leaf.png">
+<meta property="og:image" content="http://example.com/2021/02/11/cmu-15445-6-B-Tree/leaf1.png">
+<meta property="og:image" content="http://example.com/2021/02/11/cmu-15445-6-B-Tree/leaf1.png">
+<meta property="article:published_time" content="2021-02-11T02:52:26.000Z">
+<meta property="article:modified_time" content="2021-02-11T03:59:21.843Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="data structure">
+<meta property="article:tag" content="cmu15445">
+<meta property="article:tag" content="database">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/02/11/cmu-15445-6-B-Tree/example.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,36 +162,96 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-cmu-15445-6-B-Tree" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cmu 15445 6:B+Tree
+    </h1>
+  
+
+        
+        <a href="/2021/02/11/cmu-15445-6-B-Tree/" class="archive-article-date">
+  	<time datetime="2021-02-11T02:52:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>这两节的ppt是关于B+树索引的, 会直接和proj2相关, 所以一定要学好.</p>
+<p><strong>索引</strong>是表的属性的一些排序了的子集(比如key)的replica(复制), 有了这个索引就能够快速找到tuple的位置.</p>
+<p>DBMS保证表的内容和index的内容都是逻辑上同步的.</p>
+<p><strong>It is the DBMS’s job to figure out the best index(es) to use to execute each query.</strong></p>
+<p><strong>There is a trade-off on the number of indexes to</strong><br><strong>create per database.</strong></p>
+<ul>
+<li><p>Storage Overhead </p>
+</li>
+<li><p>Maintenance Overhead</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B+ Tree"></a>B+ Tree</h1><p><strong>B+树</strong>: 是一种自平衡的能够保持数据有序的树的数据结构, 能够保证查找, 顺序访问, 插入和删除的时间复杂度为O(logn):</p>
+<ul>
+<li>是BST的一种推广, 可以有超过两个孩子</li>
+<li>对于有<strong>大量数据块读写的系统</strong>优化</li>
+</ul>
+<h2 id="基本性质"><a href="#基本性质" class="headerlink" title="基本性质:"></a>基本性质:</h2><p>B+tree 是一个有如下性质的M路搜索树:</p>
+<ul>
+<li>完美平衡(每个叶结点的深度都相同)</li>
+<li>除了根节点之外的所有节点最少都是<strong>半满的</strong>(<code>M/2 -1 &lt;=  # of Key &lt;= M - 1</code>);</li>
+<li>任何一个有<code>k</code>个key的内部节点有<code>k + 1</code> 个非空孩子节点</li>
+</ul>
+<img src="/2021/02/11/cmu-15445-6-B-Tree/example.png" class>
+
+<h2 id="leaf-node"><a href="#leaf-node" class="headerlink" title="leaf node"></a>leaf node</h2><img src="/2021/02/11/cmu-15445-6-B-Tree/leaf.png" class>
+
+<p>主要需要注意的是一个叶结点<strong>有指向前后叶结点的两个指针</strong></p>
+<img src="/2021/02/11/cmu-15445-6-B-Tree/leaf1.png" class>
+
+<p>在我们实际实现中应该和上面这张图一样, 叶子节点并没有保存数据, 而是保存的<code>key</code>和<code>page_id</code>, 想要数据, 根据<code>page_id</code>去找<code>buffer_pool</code>拿就可以了, 所以指向前后叶结点的指针也不会放在<code>leaf node</code>中, 而是存放在具体<code>page</code>里面;</p>
+<img src="/2021/02/11/cmu-15445-6-B-Tree/leaf1.png" class>
+
+<p>上图说到了leaf node实现的两种方式:</p>
+<ul>
+<li>第一种就是我们上面提到的存储page_id;</li>
+<li>第二种则是直接存储tuple data, 但是存储tuple data应该很难实现的..</li>
+</ul>
+<h2 id="和B树的区别"><a href="#和B树的区别" class="headerlink" title="和B树的区别:"></a>和B树的区别:</h2><p>The original B-Tree from 1972 <strong>stored keys + values in all nodes</strong> in the tree. <strong>More space efficient</strong> since <strong>each key only appears once</strong> in the tree.</p>
+<p><strong>A B+Tree only stores values in leaf nodes. Inner nodes only <code>guide</code> the search process.</strong></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/31/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E4%B8%AD%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-01-31T14:39:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/31/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E4%B8%AD%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98/">编程之美中有趣的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -189,243 +261,115 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/11/cmu-15445-6-B-Tree/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/26/learning-git/" class="archive-article-date">
-  	<time datetime="2021-01-26T12:10:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/02/11/cmu-15445-5-hash-table/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cmu 15445 5: hash table</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/26/learning-git/">learning git</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">misc</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="archive-article-date">
-  	<time datetime="2021-01-25T15:25:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/25/%E5%AE%9E%E7%8E%B0shared%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">实现shared智能指针</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/" class="archive-article-date">
-  	<time datetime="2021-01-22T04:24:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/22/3-TechLead-problems-trie-topk-and-memorized/">3 TechLead problems:trie, topk and memorized</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">trie</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">techlead</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/21/Minimum-Spanning-Tree/" class="archive-article-date">
-  	<time datetime="2021-01-21T11:33:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/21/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/21/hello-world/" class="archive-article-date">
-  	<time datetime="2021-01-21T11:19:36.323Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/21/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -449,8 +393,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
