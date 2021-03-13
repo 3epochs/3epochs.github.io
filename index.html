@@ -152,6 +152,428 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-分布式与云计算笔记-UTSC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/">分布式与云计算笔记-UTSC</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/" class="archive-article-date">
+  	<time datetime="2021-03-11T05:54:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>一直想学分布式的知识, 上学期写了6.824一个lab后面半途而废了, 刚好这学期开了分布式与云计算这门课, 字节的面试官也建议我学一下,  故选之. 这篇文章主要记录分布式知识点, 一做复习只用, 二真的学点知识, 以后学6.824能够轻松一点. 希望不要挂科!!!</p>
+        
+          <a class="article-more-a" href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">distributed system</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud computing</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法导论复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/">算法导论复习</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2021-03-05T07:32:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><p>拿了字节offer好开心. 10号考算法, 复习加水一篇博客. 希望不要被八强啊;</p>
+<p><strong>注: 以下代码都是直接再typora上敲的, 不保证其正确性</strong></p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="什么是算法及其特征"><a href="#什么是算法及其特征" class="headerlink" title="什么是算法及其特征"></a>什么是算法及其特征</h2><p>算法是通过一个有限的指令序列集合对特定的问题进行求解的一种计算执行描述。</p>
+<p>（1）输入：一个算法具有零个或多个取自指定集合的 输入值；</p>
+<p>（2）输出：对算法的每一次输入，算法具有一个或多个与输入值相联系的输出值  </p>
+<p>（3）确定性：算法的每一个指令步骤都是明确的； </p>
+<p>（4）有限性：对算法的每一次输入，算法都必须在有 限步骤（即有限时间）内结束；  </p>
+<p>（5）正确性：对每一次输入，算法应产生出正确的输 出值； </p>
+<p>（6）通用性：算法的执行过程可应用于所有同类求解 问题，而不是仅适用于特殊的输入。</p>
+<h2 id="问题实例和问题规模"><a href="#问题实例和问题规模" class="headerlink" title="问题实例和问题规模"></a>问题实例和问题规模</h2><p>问题实例是计算问题的解决方案所需的全部输入</p>
+<p>问题规模是算法的输入实例大小。</p>
+<h1 id="算法初步"><a href="#算法初步" class="headerlink" title="算法初步"></a>算法初步</h1><h2 id="插入排序算法"><a href="#插入排序算法" class="headerlink" title="插入排序算法"></a>插入排序算法</h2><p><code>loop invariant: 当前指针左边数组已排序</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.size();</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> num = nums[i];</span><br><span class="line">        <span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> ( ; j &gt;= <span class="number">0</span> &amp;&amp; nums[j] &gt; num; --j) &#123;</span><br><span class="line">            nums[j + <span class="number">1</span>] = nums[j];</span><br><span class="line">        &#125;</span><br><span class="line">        nums[j] = num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析: 整体复杂度显然为一个三角形, 面积为O(n^2), 对于基本有序的输入友好(O(n), 因为j指针动不了);</p>
+<p>最坏O(n^2)、最好O(n^2)和平均O(n)情形复杂性</p>
+<h2 id="归并排序算法"><a href="#归并排序算法" class="headerlink" title="归并排序算法"></a>归并排序算法</h2><p><strong>可以用来计算逆序对;</strong></p>
+<p>归并的基本思想是分治, 而分治思想主要分为三个部分:</p>
+<ul>
+<li>divide - 归并中的取中间下标</li>
+<li>conquer- 递归调用</li>
+<li>combine -两个有序子数组的merge</li>
+</ul>
+<p>同样使用分治思想的还有快速排序(combine过程无需做), 平面上找最近点对.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// aux arr</span></span><br><span class="line">   	<span class="keyword">int</span> n1 = mid - lo + <span class="number">1</span>; <span class="comment">//闭区间</span></span><br><span class="line">    <span class="keyword">int</span> n2 = hi - mid; <span class="comment">// 左开右闭</span></span><br><span class="line">   	vector&lt;int&gt; left(n1 + 1), right(n2 + 1); // 多申请一个空间作为哨兵</span><br><span class="line">    <span class="comment">// copy elem to aux arr</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n1; ++i) &#123;</span><br><span class="line">        left[i] = nums[i + lo];</span><br><span class="line">    &#125;</span><br><span class="line">    left[n1] = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n2; ++i) &#123;</span><br><span class="line">        right[i] = nums[mid + <span class="number">1</span> + i];</span><br><span class="line">    &#125;</span><br><span class="line">    right[n2] = INT_MAX;</span><br><span class="line">    <span class="comment">// merge</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> idx = lo; idx &lt;= hi; ++idx) &#123;</span><br><span class="line">        <span class="keyword">if</span> (left[i] &lt;= right[j]) &#123;</span><br><span class="line">            nums[idx] = left[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            nums[idx] = right[j++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lo &lt; hi) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = lo + hi &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        mergeSort(nums, lo, mid);</span><br><span class="line">        mergeSort(nums, mid + <span class="number">1</span>, hi);</span><br><span class="line">        merge(nums, lo, mid, hi);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(nlogn), 空间复杂度为: 递归栈logn, 辅助数组总长度On, 故为O(n)</p>
+<h2 id="常见排序算法复杂度"><a href="#常见排序算法复杂度" class="headerlink" title="常见排序算法复杂度:"></a>常见排序算法复杂度:</h2><img src="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/time.png" class>
+
+
+
+<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><p><strong>堆的逻辑结构是完全二叉树, 实际存储结构是数组</strong></p>
+<p>对于一个结点i, 其父亲为i/2, 左孩子为2 * i + 1, 右孩子为2 * i + 2; </p>
+<p>堆主要核心的代码就是swim 和 sink, 具体就不写了.</p>
+<h1 id="中位数和顺序统计"><a href="#中位数和顺序统计" class="headerlink" title="中位数和顺序统计"></a>中位数和顺序统计</h1><h2 id="最大最小值"><a href="#最大最小值" class="headerlink" title="最大最小值"></a>最大最小值</h2><p>单独求一个无序数组的最值, <strong>比较次数显然为n - 1</strong>, 代码如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxVal</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] &gt; res) &#123;</span><br><span class="line">            res = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时求最大最小值:</p>
+<ul>
+<li>分别求: 则比较次数为 n - 1 + n - 2 = 2n - 3;</li>
+<li>同时求显然可以减少比较次数, 循环执行了 n / 2次, 每次循环内3次比较, 所以只比较了3n / 2次;</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">minAndMax</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = nums.size();</span><br><span class="line">    <span class="keyword">int</span> maxVal = INT_MIN, minVal = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i += <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> num1 = nums[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> num2 = nums[i];</span><br><span class="line">        <span class="keyword">if</span> (num1 &gt; num2) &#123;  <span class="comment">// 保证num1 &lt; num2, 第一次比较</span></span><br><span class="line">            swap(num1, num2);</span><br><span class="line">        &#125;</span><br><span class="line">        minVal = min(minVal, num1); <span class="comment">// 第二次比较</span></span><br><span class="line">        maxVal = max(maxVal, num2); <span class="comment">// 第三次比较</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i == n) &#123; <span class="comment">// 说明最后一个元素尚未比较</span></span><br><span class="line">        <span class="keyword">int</span> num = nums[n - <span class="number">1</span>];</span><br><span class="line">        minVal = min(minVal, num);</span><br><span class="line">        maxVal = max(maxVal, num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;minVal, maxVal&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="topk问题-期望时间为线性的选择"><a href="#topk问题-期望时间为线性的选择" class="headerlink" title="topk问题: 期望时间为线性的选择"></a>topk问题: 期望时间为线性的选择</h1><p>选出无序序列中第k大 或者 前k大个数字的时候 <strong>一定 一定使用这种方法(能放入内存的情况下)</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">topk</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (k &gt; nums.size()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (lo == hi) <span class="keyword">return</span> nums[lo];</span><br><span class="line">    <span class="keyword">if</span> (lo &lt; hi) &#123;</span><br><span class="line">        <span class="keyword">int</span> q = partition(nums, lo, hi);</span><br><span class="line">        <span class="keyword">if</span> (q == k) <span class="keyword">return</span> nums[q];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (q &lt; k) &#123;</span><br><span class="line">            <span class="keyword">return</span> topk(nums, q + <span class="number">1</span>, hi, k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> topk(nums, lo, q - <span class="number">1</span>, k);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot = nums[hi];</span><br><span class="line">    <span class="keyword">int</span> i = lo;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = lo; j &lt; hi; ++j) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[j] &lt;= pivot) &#123;</span><br><span class="line">            swap(nums[i++], nums[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(nums[i], nums[hi]);</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度<code>O(n)</code></p>
+<img src="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/topk.png" class>
+
+<h1 id="topk问题-最坏时间为线性的选择"><a href="#topk问题-最坏时间为线性的选择" class="headerlink" title="topk问题: 最坏时间为线性的选择"></a>topk问题: 最坏时间为线性的选择</h1><p>这算法有点难, 一般面试也不会用上, 随便看看吧</p>
+<img src="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/topk1.png" class>
+
+
+
+<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><p>红黑树是一种放宽了限制的avl树(通过引入红节点), 所以查询性能比avl树弱, 但是插入删除旋转次数较少, 它有如下五个基本性质:</p>
+<ul>
+<li>每个结点红或者黑</li>
+<li>根为黑</li>
+<li>nil结点为黑</li>
+<li>若节点为红, 则两个孩子必为黑(即没有两个红节点直接连接)</li>
+<li>每个结点到所有后代叶子的路径有同样多的黑结点(黑高相等)</li>
+</ul>
+<p><strong>一棵n个内点的红黑树的高度至多 是2log(n+1)。</strong></p>
+<p><strong>插入算法的时间、至多使用2次旋转</strong></p>
+<p><strong>删除算法的时间、至多使用3次旋转</strong></p>
+<h2 id="红黑树左旋"><a href="#红黑树左旋" class="headerlink" title="红黑树左旋"></a>红黑树左旋</h2><img src="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/lr.png" class>
+
+<h2 id="红黑树插入"><a href="#红黑树插入" class="headerlink" title="红黑树插入"></a>红黑树插入</h2><p>step 1：将z节点按BST树规则插入红黑树中， z是叶子节点；</p>
+<p>step 2：将z涂红； </p>
+<p>step 3：调整使其满足红黑树的性质；</p>
+<h1 id="OS树"><a href="#OS树" class="headerlink" title="OS树"></a>OS树</h1><p>os树就是红黑树维护了size属性;</p>
+<img src="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/os.png" class>
+
+<p><code>OS-select(x, i)</code>: 选择以x为根的子树中, 查找第i个最小元素</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode *<span class="title">OSSelect</span><span class="params">(TreeNode *x, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rank = x-&gt;left-&gt;size + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (rank == i) <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (i &lt; rank) &#123;</span><br><span class="line">        <span class="keyword">return</span> OSSelect(x-&gt;left, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> OSSelect(x-&gt;right, i - rank);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>OSRank(TreeNode *x)</code>: 在以x为根的自述中求x的秩:</p>
+<h1 id="不相交集合的数据结构"><a href="#不相交集合的数据结构" class="headerlink" title="不相交集合的数据结构"></a>不相交集合的数据结构</h1><p>主要是并查集, 主要用来计算连通分量个数, 计算朋友圈…</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">    UF(<span class="keyword">int</span> n) &#123; <span class="comment">// init a uf with n nodes</span></span><br><span class="line">        p.resize(n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            p[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        setCount = n;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">// find with path compression</span></span><br><span class="line">        <span class="keyword">return</span> x == p[x] ? x : p[x] = find(p[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> f1 = find(x), f2 = find(y);</span><br><span class="line">        <span class="keyword">if</span> (f1 != f2) &#123;</span><br><span class="line">            --setCount;</span><br><span class="line">            p[f1] = f2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p; <span class="comment">// parent</span></span><br><span class="line">    <span class="keyword">int</span> setCount; <span class="comment">// # of sets</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h1><h2 id="BFS和DFS算法"><a href="#BFS和DFS算法" class="headerlink" title="BFS和DFS算法"></a>BFS和DFS算法</h2><ul>
+<li>白色、灰色和黑色结点概念和作用<ul>
+<li>所有节点一开始被初始化为白色, 颜色属性保存再结点color域中</li>
+<li>所有与黑色结点邻接的结点都已经被发现</li>
+<li>灰色结点是代表的是已访问和未访问两个集合的边界</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span>white = <span class="number">0</span>, gray = <span class="number">1</span>, black = <span class="number">2</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> color;</span><br><span class="line">    <span class="keyword">int</span> dist;</span><br><span class="line">    Node *pre;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(graph g, Node *s)</span> </span>&#123;  <span class="comment">// g代表整张图, s为bfs搜索起始节点</span></span><br><span class="line">    <span class="comment">// 初始化其余节点信息</span></span><br><span class="line">    <span class="keyword">for</span> (Node *node : g.vertices - s) &#123; <span class="comment">// 半伪代码</span></span><br><span class="line">        node-&gt;color = white;</span><br><span class="line">        node-&gt;dist = INT_MAX;</span><br><span class="line">        node-&gt;pre = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    s-&gt;color = gray; <span class="comment">// 因为gray代表的是已知和未知两个集合之间的边界</span></span><br><span class="line">    s-&gt;dist = <span class="number">0</span>;</span><br><span class="line">    s-&gt;pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;Node *&gt; q;</span><br><span class="line">    q.push(s);</span><br><span class="line">    <span class="keyword">while</span> (q.size()) &#123;</span><br><span class="line">        Node *u = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span> (Node *v : u-&gt;adj()) &#123; <span class="comment">// 假设adj能够返回邻接的结点指针</span></span><br><span class="line">            <span class="keyword">if</span> (v-&gt;color == white) &#123; <span class="comment">// v尚未被访问过</span></span><br><span class="line">                v-&gt;color = gray;</span><br><span class="line">                q.push(v);</span><br><span class="line">                v-&gt;dist = u-&gt;dist + <span class="number">1</span>;</span><br><span class="line">                v-&gt;pre = u;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        u-&gt;color = black; <span class="comment">// 至此, u之和黑色或者灰色结点邻接</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>计算过程及其时间复杂度</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">coding</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-cmu-15445-proj3-query-executor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/18/cmu-15445-proj3-query-executor/">cmu 15445 proj3: query executor</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/18/cmu-15445-proj3-query-executor/" class="archive-article-date">
+  	<time datetime="2021-02-18T03:15:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h1><p>The third programming project is to add support for executing queries in your database system. You will implement <strong>executors</strong> that are responsible for taking query plan nodes and executing them.</p>
+<p>需要支持以下操作:</p>
+<ul>
+<li><strong>Access Methods:</strong> Sequential Scans, Index Scans (with your B+Tree from <a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2020/project2">Project #2</a>)</li>
+<li><strong>Modifications:</strong> Inserts, Updates, Deletes</li>
+<li><strong>Miscellaneous:</strong> Nested Loop Joins, Index Nested Loop Joins, Aggregation, Limit/Offset</li>
+</ul>
+<p><strong>We will use the Iterator query processing model (i.e., the Volcano model). Every query plan executor implements a <code>Next</code> function. When the DBMS invokes an executor’s <code>Next</code> function, the executor returns either (1) a single tuple or (2) a null pointer to indicate that there are no more tuples. With this approach, each executor implements a loop that keeps calling <code>Next</code> on its children to retrieve tuples and then process them one-by-one.</strong></p>
+<p>参考博文: <a target="_blank" rel="noopener" href="http://patshaughnessy.net/2014/10/13/following-a-select-statement-through-postgres-internals">http://patshaughnessy.net/2014/10/13/following-a-select-statement-through-postgres-internals</a></p>
+<p>这文章写的太好了!!!</p>
+<h1 id="task1-SYSTEM-CATALOG"><a href="#task1-SYSTEM-CATALOG" class="headerlink" title="task1 SYSTEM CATALOG"></a>task1 SYSTEM CATALOG</h1><p>A database maintains an internal catalog to keep track of <strong>meta-data about the database</strong>. For example, the catalog is used to answer <strong>what tables are present and where</strong>.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/18/cmu-15445-proj3-query-executor/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-cmu-15445-8-query-execution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/18/cmu-15445-8-query-execution/">cmu 15445 8: query execution</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/18/cmu-15445-8-query-execution/" class="archive-article-date">
+  	<time datetime="2021-02-18T02:14:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><p>进入到proj3的理论部分,  proj2可太难了, 把我整自闭了…</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1>
+
+<ul>
+<li>操作符以树的形式来排布</li>
+<li>数据流从叶子节点往上流</li>
+<li>根节点的输出就是query的结果</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-database -cmu15445 -executor</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/18/cmu-15445-8-query-execution/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-cmu-15445-7-index-concurrency" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -680,347 +1102,9 @@
 
 
   
-    <article id="post-cmu-15445-3-database-storage-part-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/08/cmu-15445-3-database-storage-part-II/">cmu 15445 3: database storage part II</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/08/cmu-15445-3-database-storage-part-II/" class="archive-article-date">
-  	<time datetime="2021-02-08T14:14:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>这是关于数据库存储的第二部分. 这个学完就可以慢慢开始写proj1了;</p>
-
-
-<p>tuple的组织方式还是像上一节所述, 需要注意的时<code>slot array</code>和 <code>tuple</code>的生长方向;</p>
-        
-          <a class="article-more-a" href="/2021/02/08/cmu-15445-3-database-storage-part-II/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">storage</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cmu 15445</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/08/cmu-15445-3-database-storage-part-II/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-cmu-15445-3-database-storage" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/08/cmu-15445-3-database-storage/">cmu 15445 3: database storage</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/08/cmu-15445-3-database-storage/" class="archive-article-date">
-  	<time datetime="2021-02-08T08:40:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><p>算是正式步入这个课程的主题了, 这门课主要关心数据库底层的存储过程, 现在学的东西也会直接和lab1相关;</p>
-<h1 id="disk-manager"><a href="#disk-manager" class="headerlink" title="disk manager"></a>disk manager</h1><p><strong>存储层次</strong>:</p>
-<img src="/2021/02/08/cmu-15445-3-database-storage/hierarchy.png" class>
-        
-          <a class="article-more-a" href="/2021/02/08/cmu-15445-3-database-storage/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">storage</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cmu 15445</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/08/cmu-15445-3-database-storage/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-cmu-15445-hw1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/08/cmu-15445-hw1/">cmu 15445 hw1</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/08/cmu-15445-hw1/" class="archive-article-date">
-  	<time datetime="2021-02-08T03:16:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>15445这门课的第一份hw<a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2020/homework1/">https://15445.courses.cs.cmu.edu/fall2020/homework1/</a>,</p>
-<p>主要是对这个数据库<a target="_blank" rel="noopener" href="https://musicbrainz.org/doc/MusicBrainz_Database">https://musicbrainz.org/doc/MusicBrainz_Database</a></p>
-<p>进行一些sql语句的编写;</p>
-        
-          <a class="article-more-a" href="/2021/02/08/cmu-15445-hw1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-sql -database -cmu15445</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/08/cmu-15445-hw1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-cmu-15445-2-crash-SQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/07/cmu-15445-2-crash-SQL/">cmu 15445 2: crash SQL</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/07/cmu-15445-2-crash-SQL/" class="archive-article-date">
-  	<time datetime="2021-02-07T09:13:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><p>第二课, 快速学习SQL…</p>
-<h1 id="relational-languages"><a href="#relational-languages" class="headerlink" title="relational languages"></a>relational languages</h1><p>用户只需要说明需要什么, 而不需要说明如何计算得到他…(中文好别扭, 还是用英文).</p>
-<p><strong>User only needs to specify the answer that they want, not how to compute it.</strong></p>
-<p><strong>DBMS负责query的高效执行, 一些high-end系统有query优化器可以重写输入query并且查找最优的执行策略.</strong></p>
-        
-          <a class="article-more-a" href="/2021/02/07/cmu-15445-2-crash-SQL/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">databases</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/07/cmu-15445-2-crash-SQL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1187,6 +1271,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">-database -cmu15445 -executor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">B+tree</a>
               </li>
              
@@ -1207,11 +1295,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">distributed system</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">cloud computing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编程语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">coding</a>
               </li>
              
               <li class="article-tag-list-item">
