@@ -6,15 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>cmu15445: hw2 B+Tree 操作 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="intro写实验二的时候还是感觉头脑是一团浆糊, 归根结底还是B+tree操作不太熟悉, 还是不能跳过, 决定做一下hw2的B+Tree部分;   上图展现了我们要操作的b+tree的样子, 并且对B+Tree的结构做了简单的说明:  内部节点的左指针 指向了所有小于当前key的情况,  右指针指向了所有大于等于当前key的情况 叶子节点当关键字个数小于 d - 1 &#x2F; 2向上取整的时候认为und">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmu15445: hw2 B+Tree 操作">
+<meta property="og:url" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="intro写实验二的时候还是感觉头脑是一团浆糊, 归根结底还是B+tree操作不太熟悉, 还是不能跳过, 决定做一下hw2的B+Tree部分;   上图展现了我们要操作的b+tree的样子, 并且对B+Tree的结构做了简单的说明:  内部节点的左指针 指向了所有小于当前key的情况,  右指针指向了所有大于等于当前key的情况 叶子节点当关键字个数小于 d - 1 &#x2F; 2向上取整的时候认为und">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/spec.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/insert.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/insert1.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/code1.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/code2.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/ques.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png">
+<meta property="article:published_time" content="2021-03-14T14:28:26.000Z">
+<meta property="article:modified_time" content="2021-03-14T16:00:43.089Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="data structure">
+<meta property="article:tag" content="B+ tree">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/spec.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,36 +166,108 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-cmu15445-hw2-B-Tree-操作" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2021-03-14T14:28:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/">cmu15445: hw2 B+Tree 操作</a>
+    <h1 class="article-title" itemprop="name">
+      cmu15445: hw2 B+Tree 操作
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+  	<time datetime="2021-03-14T14:28:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>写实验二的时候还是感觉头脑是一团浆糊, 归根结底还是B+tree操作不太熟悉, 还是不能跳过, 决定做一下hw2的B+Tree部分;</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/spec.png" class>
+
+<p>上图展现了我们要操作的b+tree的样子, 并且对B+Tree的结构做了简单的说明:</p>
+<ul>
+<li><strong>内部节点</strong>的左指针 指向了所有<strong>小于当前key</strong>的情况,  右指针指向了所有<strong>大于等于当前key</strong>的情况</li>
+<li><strong>叶子节点</strong>当关键字个数小于 d - 1 / 2向上取整的时候认为underflow, 在这个例子中d为4, 所以当#key小于2的时候发生下溢, 需要进行调整;</li>
+<li><strong>内部结点</strong>当指针数小于 d / 2向上取整的时候发生下溢, 这个例子中当指针数小于2的时候发生下溢, 需要调整</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="阅读数据库概念相关部分"><a href="#阅读数据库概念相关部分" class="headerlink" title="阅读数据库概念相关部分"></a>阅读数据库概念相关部分</h1><h2 id="插入部分"><a href="#插入部分" class="headerlink" title="插入部分"></a>插入部分</h2><img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/insert.png" class>
+
+<p>当要插入的结点(一定是叶子结点)满的时候需要进行分裂:</p>
+<ul>
+<li>叶子结点有n个指针, n - 1个key, 所以插入后应该有n个key</li>
+<li>将n /2向上取整个key留在原始结点, 剩下的结点放入新创建的结点中</li>
+<li>Having split a leaf node, we must insert the new leaf node into the B+-tree<br>structure</li>
+<li>新创建结点的第一个key肯定是这个结点中最小的key(所有结点内部都是按照key进行排序的), 所以我们应该把这个key  以及 <strong>指向这个新创建的结点</strong>的指针 组成的entry放入到parent结点中;</li>
+</ul>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/insert1.png" class>
+
+<p><strong>发现一个错误: 上图中应该是crick左指针指向76766</strong></p>
+<p>在上图中假设我们要插入Adam, 走路由, 按照 <strong>内部节点</strong>的左指针 指向了所有<strong>小于当前key</strong>的情况,  右指针指向了所有<strong>大于等于当前key</strong>的情况 这个规则, 我们可以顺利走到最左边的leaf node, 而这个结点是满的, n = 4, 应该把<code>Adam</code>, <code>Brandt</code>留在原始结点, <code>Califieri</code>,  <code>Crick</code>放入新创建的结点; 这时候新节点的最小key也就是第一个key是<code>Califieri</code>, 我们将<code>Califieri</code>这个key, 以及指向这个新节点的指针放入parent node中, 而parent node中恰好有位置, 保持有序二分插入即可, 最后形成上一张截图中<code>Figure 11.13</code>的情况</p>
+<p><strong>然而并不是放入parent node中就能结束的, 有时候parent node也没有空间!!!</strong></p>
+<p>这种情况下, parent node也需要进行分裂, <strong>但是内部结点的分裂和叶子结点的分裂是不同的</strong>!!!</p>
+<p><strong>To do so, the parent node is conceptually expanded temporarily, the entry added, and the overfull node is then immediately split.</strong></p>
+<p><strong>However, the search key value that lies between the pointers that stay on the<br>left, and the pointers that move to the right node is treated differently. In our example, the search key value “Gold” lies between the three pointers that went to the left node, and the two pointers that went to the right node. The value “Gold” is not added to either of the split nodes. Instead, an entry (Gold, n2) is added to the parent node, where n2 is a pointer to the newly created node that resulted from the split. In this case, the parent node is the root, and it has enough space for the new entry.</strong></p>
+<p>不太好解释, 代码:</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/code1.png" class>
+
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/code2.png" class>
+
+<p>逐行瞎解释一下insert, 要插入的是一个key 和 一个 ptr, 这个ptr指向存放实际tuple的位置:</p>
+<p>算了 不解释了, 先做…</p>
+<h2 id="第一题-下图插入14后结果长啥样"><a href="#第一题-下图插入14后结果长啥样" class="headerlink" title="第一题 下图插入14后结果长啥样?"></a>第一题 下图插入14后结果长啥样?</h2><img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/ques.png" class>
+
+
+
+<p>应该选c</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png" class>
+
+<h2 id="第二题-How-many-pointers-parent-to-child-and-sibling-to-sibling-do-you-chase-to-find-all-keys-between-5-and-15"><a href="#第二题-How-many-pointers-parent-to-child-and-sibling-to-sibling-do-you-chase-to-find-all-keys-between-5-and-15" class="headerlink" title="第二题 How many pointers (parent-to-child and sibling-to-sibling) do you chase to find all keys between 5 and 15?"></a>第二题 How many pointers (parent-to-child and sibling-to-sibling) do you chase to find all keys between 5 and 15?</h2><p>假设不是在上一步基础上做的…</p>
+
+
+<p>应该是两次吧</p>
+<h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del.png" class>
+
+<p>删除方法简述如上, 在下图B+树上删除23</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png" class>
+
+<p>删除23, 叶子只剩一个key, underflow, 需要进行操作, 找同父母的sibling借, 发现不够借, 所以和sibling合并</p>
+<p>而parent结点中的19也没必要存在了, 这时候parent<strong>剩1个指针</strong> underflow!!! </p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,420 +283,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/" class="archive-article-date">
-  	<time datetime="2021-03-11T05:54:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式与云计算笔记-UTSC</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%8E%E4%BA%91%E8%AE%A1%E7%AE%97%E7%AC%94%E8%AE%B0-UTSC/">分布式与云计算笔记-UTSC</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">distributed system</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud computing</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-03-05T07:32:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%A4%8D%E4%B9%A0/">算法导论复习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">coding</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/18/cmu-15445-proj3-query-executor/" class="archive-article-date">
-  	<time datetime="2021-02-18T03:15:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/18/cmu-15445-proj3-query-executor/">cmu 15445 proj3: query executor</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/18/cmu-15445-8-query-execution/" class="archive-article-date">
-  	<time datetime="2021-02-18T02:14:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/18/cmu-15445-8-query-execution/">cmu 15445 8: query execution</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-database -cmu15445 -executor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/15/cmu-15445-7-index-concurrency/" class="archive-article-date">
-  	<time datetime="2021-02-15T01:49:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/15/cmu-15445-7-index-concurrency/">cmu 15445 7: index concurrency</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">index</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">multithread</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/12/cmu-15445-proj2/" class="archive-article-date">
-  	<time datetime="2021-02-12T04:35:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/12/cmu-15445-proj2/">cmu 15445 proj2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">index</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">B+tree</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/11/cmu-15445-6-B-Tree/" class="archive-article-date">
-  	<time datetime="2021-02-11T02:52:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/11/cmu-15445-6-B-Tree/">cmu 15445 6:B+Tree</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/11/cmu-15445-5-hash-table/" class="archive-article-date">
-  	<time datetime="2021-02-11T02:23:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/11/cmu-15445-5-hash-table/">cmu 15445 5: hash table</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hash</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/09/cmu-15445-proj1/" class="archive-article-date">
-  	<time datetime="2021-02-09T09:54:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/09/cmu-15445-proj1/">cmu 15445: proj1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">-databases -buffer pool -coding -cmu15445</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -632,8 +405,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

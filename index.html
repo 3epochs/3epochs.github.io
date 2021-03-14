@@ -152,6 +152,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-cmu15445-hw2-B-Tree-操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/">cmu15445: hw2 B+Tree 操作</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+  	<time datetime="2021-03-14T14:28:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>写实验二的时候还是感觉头脑是一团浆糊, 归根结底还是B+tree操作不太熟悉, 还是不能跳过, 决定做一下hw2的B+Tree部分;</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/spec.png" class>
+
+<p>上图展现了我们要操作的b+tree的样子, 并且对B+Tree的结构做了简单的说明:</p>
+<ul>
+<li><strong>内部节点</strong>的左指针 指向了所有<strong>小于当前key</strong>的情况,  右指针指向了所有<strong>大于等于当前key</strong>的情况</li>
+<li><strong>叶子节点</strong>当关键字个数小于 d - 1 / 2向上取整的时候认为underflow, 在这个例子中d为4, 所以当#key小于2的时候发生下溢, 需要进行调整;</li>
+<li><strong>内部结点</strong>当指针数小于 d / 2向上取整的时候发生下溢, 这个例子中当指针数小于2的时候发生下溢, 需要调整</li>
+</ul>
+        
+          <a class="article-more-a" href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">data structure</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">B+ tree</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-分布式与云计算笔记-UTSC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -449,11 +537,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
@@ -706,11 +794,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -808,11 +896,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
@@ -890,11 +978,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -987,92 +1075,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/09/cmu-15445-proj1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-cmu15445-4-buffer-pool" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/09/cmu15445-4-buffer-pool/">cmu15445 4: buffer pool</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/09/cmu15445-4-buffer-pool/" class="archive-article-date">
-  	<time datetime="2021-02-09T03:19:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><p>lab1也就是写一个buffer pool, 所以说这一节特别重要, 务必要弄懂!!!</p>
-<h1 id="database-storage"><a href="#database-storage" class="headerlink" title="database storage"></a>database storage</h1><p><strong>spatial control: where to write pages to disk, the goal is to keep pages that are used together often as physically close together as possible on the disk</strong>;</p>
-<p><strong>Temporal Control:When to read pages into memory, and when to write them to disk.The goal is minimize the number of stalls from having to read data from disk.</strong></p>
-        
-          <a class="article-more-a" href="/2021/02/09/cmu15445-4-buffer-pool/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">databases</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmu15445</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">buffer pool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/09/cmu15445-4-buffer-pool/">展开全文 >></a>
         </p>
       
 
@@ -1231,6 +1233,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cmu15445</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">database</a>
               </li>
              
@@ -1240,14 +1250,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">cmu 15445</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cmu15445</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1280,6 +1282,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">buffer pool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">B+ tree</a>
               </li>
              
               <li class="article-tag-list-item">
