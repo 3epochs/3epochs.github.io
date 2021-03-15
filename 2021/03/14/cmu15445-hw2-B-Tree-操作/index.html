@@ -21,11 +21,17 @@
 <meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/code1.png">
 <meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/code2.png">
 <meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/ques.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol1.jpg">
 <meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png">
 <meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del1.png">
 <meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol4.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol5.JPG">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del2.png">
+<meta property="og:image" content="http://example.com/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol6.jpg">
 <meta property="article:published_time" content="2021-03-14T14:28:26.000Z">
-<meta property="article:modified_time" content="2021-03-14T16:00:43.089Z">
+<meta property="article:modified_time" content="2021-03-15T01:17:22.008Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="data structure">
 <meta property="article:tag" content="B+ tree">
@@ -223,22 +229,44 @@
 <p>算了 不解释了, 先做…</p>
 <h2 id="第一题-下图插入14后结果长啥样"><a href="#第一题-下图插入14后结果长啥样" class="headerlink" title="第一题 下图插入14后结果长啥样?"></a>第一题 下图插入14后结果长啥样?</h2><img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/ques.png" class>
 
-
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol1.jpg" class>
 
 <p>应该选c</p>
 <img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png" class>
 
-<h2 id="第二题-How-many-pointers-parent-to-child-and-sibling-to-sibling-do-you-chase-to-find-all-keys-between-5-and-15"><a href="#第二题-How-many-pointers-parent-to-child-and-sibling-to-sibling-do-you-chase-to-find-all-keys-between-5-and-15" class="headerlink" title="第二题 How many pointers (parent-to-child and sibling-to-sibling) do you chase to find all keys between 5 and 15?"></a>第二题 How many pointers (parent-to-child and sibling-to-sibling) do you chase to find all keys between 5 and 15?</h2><p>假设不是在上一步基础上做的…</p>
-
-
-<p>应该是两次吧</p>
+<h2 id="第二题-How-many-pointers-parent-to-child-and-sibling-to-sibling-do-you-chase-to-find-all-keys-between-5-and-15"><a href="#第二题-How-many-pointers-parent-to-child-and-sibling-to-sibling-do-you-chase-to-find-all-keys-between-5-and-15" class="headerlink" title="第二题 How many pointers (parent-to-child and sibling-to-sibling) do you chase to find all keys between 5 and 15?"></a>第二题 How many pointers (parent-to-child and sibling-to-sibling) do you chase to find all keys between 5 and 15?</h2><p>假设是在上一步基础上做的…</p>
+<p>应该是4次吧(不知道需不需要走到17, 18 这个叶子节点再停止…)</p>
 <h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del.png" class>
 
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del1.png" class>
+
+<p>通过上面伪代码画红框的部分, 可以看到, 优先合并, 如果无法合并则再借结点.</p>
 <p>删除方法简述如上, 在下图B+树上删除23</p>
 <img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol2.png" class>
 
-<p>删除23, 叶子只剩一个key, underflow, 需要进行操作, 找同父母的sibling借, 发现不够借, 所以和sibling合并</p>
-<p>而parent结点中的19也没必要存在了, 这时候parent<strong>剩1个指针</strong> underflow!!! </p>
+<ul>
+<li>删除23, 叶子只剩一个key, underflow, 需要进行操作,  他的兄弟17, 18 结点还有一个位置, 可以进行合并, 将19以及指针拷贝进去, 将兄弟的 next_page指针(也就是最后一个指针)指向19这个结点的next, 也就是nullptr;</li>
+<li>递归删除19这个父节点, 删掉key和ptr后剩一个指针, underflow, 兄弟4, 12这个结点还有位置,  需要进行合并, 这时候是内部节点, 所以将<code>K&#39;(是父节点(root)中比N与N&#39;之间的值, 这种情况下就是17)</code>, 以及当前这个结点中剩下的唯一一个指针(最左边的指针), 拷贝到4, 12中去;</li>
+<li>递归删除17这个root, 删掉17以及指针后, 当前结点是root而且只剩下<code>4, 12, 19 </code>这一个孩子, 那么将这个唯一的孩子设置为root, 并且将原来root结点删掉;</li>
+</ul>
+<p>最后结果应该如下:</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol4.png" class>
+
+<h2 id="第三题-Finally-insert-4∗-and-delete-3∗-Select-the-resulting-tree"><a href="#第三题-Finally-insert-4∗-and-delete-3∗-Select-the-resulting-tree" class="headerlink" title="第三题 Finally insert 4∗ and delete 3∗. Select the resulting tree."></a>第三题 Finally insert 4∗ and delete 3∗. Select the resulting tree.</h2><h3 id="插入4"><a href="#插入4" class="headerlink" title="插入4:"></a><strong>插入4:</strong></h3><p>4 &gt;= 4, 所以走4的右指针进入第二个孩子, 这个孩子还有空间, 所以直接插入就行;</p>
+<p>初步结果如下:</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol5.JPG" class>
+
+<h3 id="删除3"><a href="#删除3" class="headerlink" title="删除3:"></a>删除3:</h3><p>删除3, 结点只剩下一个key, underflow, 兄弟没有位置, 无法进行合并, 所以要进行redistribution(借结点):</p>
+<p>redistribution 伪代码:</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/del2.png" class>
+
+<p><code>N&#39;</code>不是<code>N</code>的predecessor, 所以走<strong>symmetric</strong>:</p>
+<p>N是<code>leaf node</code>, 走对称的else:</p>
+<p>将<code>4, 5, 7</code>这个结点的第一个key 和 ptr插入到2这个结点的末尾,  再将剩下的<code>5, 7</code>的第一个key 5 , 替换parent中的4;</p>
+<p>所以最后结果如下:</p>
+<img src="/2021/03/14/cmu15445-hw2-B-Tree-%E6%93%8D%E4%BD%9C/sol6.jpg" class>
+
+<p>应该选A; </p>
 
       
 
@@ -491,19 +519,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">databases</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">15445</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,6 +559,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">-database -cmu15445 -executor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">index</a>
               </li>
              
@@ -547,10 +579,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-database -cmu15445 -executor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">B+tree</a>
               </li>
              
@@ -560,6 +588,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">B+ tree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">coding</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,10 +620,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编程语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">coding</a>
               </li>
              
               <li class="article-tag-list-item">
